@@ -24,12 +24,12 @@ namespace ClassroomScheduler.Models
 
             modelBuilder.Entity<ProfessorCourse>()
                 .HasOne(pt => pt.Professor)
-                .WithMany(p => p.ProfessorCourses)
+                .WithMany(p => p.Courses)
                 .HasForeignKey(pt => pt.ProfessorId);
 
             modelBuilder.Entity<ProfessorCourse>()
                 .HasOne(pt => pt.Course)
-                .WithMany(p => p.ProfessorCourses)
+                .WithMany(p => p.Professors)
                 .HasForeignKey(pt => pt.CourseId);
             
         }

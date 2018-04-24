@@ -17,7 +17,7 @@ namespace ClassroomScheduler.Models
         public string CourseName { get; set; }
 
         public int Semester { get; set; }
-        public List<ProfessorCourse> ProfessorCourses { get; set; }
+        public List<ProfessorCourse> Professors { get; set; }
 
     }
 }

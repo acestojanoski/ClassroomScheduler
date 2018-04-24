@@ -13,6 +13,6 @@ namespace ClassroomScheduler.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public UserType UserType { get; set; }
-        public List<ProfessorCourse> ProfessorCourses { get; set; }
+        public List<ProfessorCourse> Courses { get; set; }
     }
 }
