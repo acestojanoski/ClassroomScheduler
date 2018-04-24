@@ -12,8 +12,8 @@ namespace ClassroomScheduler.Models
         [Required]
         public int ClassRoomId { get; set; }
 
-        [MaxLength(50)]
         [Required]
+        [MaxLength(50)]
         public string ClassRoomName { get; set; }
 
         [Required]
