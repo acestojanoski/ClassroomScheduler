@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using WebApplication7.Models;
+using ClassroomScheduler.Models;
 
-namespace WebApplication7.Models
+namespace ClassroomScheduler.Models
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

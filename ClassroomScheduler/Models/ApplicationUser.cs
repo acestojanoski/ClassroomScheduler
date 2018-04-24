@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace WebApplication7.Models
+namespace ClassroomScheduler.Models
 {
     public class ApplicationUser : IdentityUser
     {   

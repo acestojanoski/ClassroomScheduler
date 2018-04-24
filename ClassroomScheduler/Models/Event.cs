@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace WebApplication7.Models
+namespace ClassroomScheduler.Models
 {
     public class Event
     {
