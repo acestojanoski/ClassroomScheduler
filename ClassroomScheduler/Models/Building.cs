@@ -9,7 +9,6 @@ namespace ClassroomScheduler.Models
     public class Building
     {
         [Key]
-        [Required]
         public int BuildingId { get; set; }
 
         [Required]

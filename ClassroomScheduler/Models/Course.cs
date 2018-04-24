@@ -9,7 +9,6 @@ namespace ClassroomScheduler.Models
     public class Course
     {
         [Key]
-        [Required]
         public int CourseId { get; set; }
 
         [MaxLength(100)]

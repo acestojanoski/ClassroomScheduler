@@ -10,7 +10,6 @@ namespace ClassroomScheduler.Models
     public class Event
     {
         [Key]
-        [Required]
         public int EventId { get; set; }
 
         [Required]
