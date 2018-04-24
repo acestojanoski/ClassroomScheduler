@@ -10,17 +10,33 @@ namespace ClassroomScheduler.Models
     public class Event
     {
         [Key]
+        [Required]
         public int EventId { get; set; }
-        public string Description { get; set; }
-        public EventType EventType { get; set; }
-        public Course Course { get; set; }
-        public ClassRoom ClassRoom { get; set; }
+
+        [Required]
         public DateTime StartTime { get; set; }
+
+        [Required]
         public DateTime EndTime { get; set; }
+
+        [Required]
         public bool Repeat { get; set; }
+
+        [Required]
         public int? RepeatTimes { get; set; }
+
+        [Required]
+        public EventType EventType { get; set; }
+
+        [Required]
+        public Course Course { get; set; }
+
+        [Required]
+        public ClassRoom ClassRoom { get; set; }
+
+        public string Description { get; set; }
+
+        [Required]
         public ApplicationUser CreatedBy { get; set; }
-
-
     }
 }

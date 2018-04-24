@@ -24,24 +24,22 @@ namespace ClassroomScheduler.Models
 
             modelBuilder.Entity<ProfessorCourse>()
                 .HasOne(pt => pt.Professor)
-                .WithMany(p => p.Courses)
+                .WithMany(p => p.ProfessorCourses)
                 .HasForeignKey(pt => pt.ProfessorId);
 
             modelBuilder.Entity<ProfessorCourse>()
                 .HasOne(pt => pt.Course)
-                .WithMany(p => p.Professors)
+                .WithMany(p => p.ProfessorCourses)
                 .HasForeignKey(pt => pt.CourseId);
             
         }
-        
-
 
         public DbSet<Event> Events { get; set; }
         public DbSet<ClassRoom> ClassRooms { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Building> Buildings { get; set; }
         public DbSet<EventType> EventTypes { get; set; }
-        public UserType UserType { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
         public DbSet<ApplicationUser> Professors { get; set; }
         public DbSet<ProfessorCourse> ProfessorCourses { get; set; }
     }
