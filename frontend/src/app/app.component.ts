@@ -9,3 +9,4 @@ import { environment } from '../environments/environment';
 export class AppComponent {
   public apiUrl: string = environment.apiUrl;
 }
+
