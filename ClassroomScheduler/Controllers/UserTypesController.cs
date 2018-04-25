@@ -36,7 +36,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var userType = await _context.UserTypes.SingleOrDefaultAsync(m => m.UserTypeId == id);
+            var userType = await _context.UserTypes.SingleOrDefaultAsync(m => m.Id == id);
 
             if (userType == null)
             {
@@ -55,7 +55,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != userType.UserTypeId)
+            if (id != userType.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace ClassroomScheduler.Controllers
             _context.UserTypes.Add(userType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUserType", new { id = userType.UserTypeId }, userType);
+            return CreatedAtAction("GetUserType", new { id = userType.Id }, userType);
         }
 
         // DELETE: api/UserTypes/5
@@ -105,7 +105,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var userType = await _context.UserTypes.SingleOrDefaultAsync(m => m.UserTypeId == id);
+            var userType = await _context.UserTypes.SingleOrDefaultAsync(m => m.Id == id);
             if (userType == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace ClassroomScheduler.Controllers
 
         private bool UserTypeExists(int id)
         {
-            return _context.UserTypes.Any(e => e.UserTypeId == id);
+            return _context.UserTypes.Any(e => e.Id == id);
         }
     }
 }

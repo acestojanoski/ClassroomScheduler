@@ -36,7 +36,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var eventType = await _context.EventTypes.SingleOrDefaultAsync(m => m.EventTypeId == id);
+            var eventType = await _context.EventTypes.SingleOrDefaultAsync(m => m.Id == id);
 
             if (eventType == null)
             {
@@ -55,7 +55,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != eventType.EventTypeId)
+            if (id != eventType.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace ClassroomScheduler.Controllers
             _context.EventTypes.Add(eventType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEventType", new { id = eventType.EventTypeId }, eventType);
+            return CreatedAtAction("GetEventType", new { id = eventType.Id }, eventType);
         }
 
         // DELETE: api/EventTypes/5
@@ -105,7 +105,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var eventType = await _context.EventTypes.SingleOrDefaultAsync(m => m.EventTypeId == id);
+            var eventType = await _context.EventTypes.SingleOrDefaultAsync(m => m.Id == id);
             if (eventType == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace ClassroomScheduler.Controllers
 
         private bool EventTypeExists(int id)
         {
-            return _context.EventTypes.Any(e => e.EventTypeId == id);
+            return _context.EventTypes.Any(e => e.Id == id);
         }
     }
 }

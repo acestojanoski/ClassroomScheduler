@@ -36,7 +36,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var building = await _context.Buildings.SingleOrDefaultAsync(m => m.BuildingId == id);
+            var building = await _context.Buildings.SingleOrDefaultAsync(m => m.Id == id);
 
             if (building == null)
             {
@@ -55,7 +55,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != building.BuildingId)
+            if (id != building.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace ClassroomScheduler.Controllers
             _context.Buildings.Add(building);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBuilding", new { id = building.BuildingId }, building);
+            return CreatedAtAction("GetBuilding", new { id = building.Id }, building);
         }
 
         // DELETE: api/Buildings/5
@@ -105,7 +105,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var building = await _context.Buildings.SingleOrDefaultAsync(m => m.BuildingId == id);
+            var building = await _context.Buildings.SingleOrDefaultAsync(m => m.Id == id);
             if (building == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace ClassroomScheduler.Controllers
 
         private bool BuildingExists(int id)
         {
-            return _context.Buildings.Any(e => e.BuildingId == id);
+            return _context.Buildings.Any(e => e.Id == id);
         }
     }
 }

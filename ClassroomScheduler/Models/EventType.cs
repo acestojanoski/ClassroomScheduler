@@ -9,11 +9,11 @@ namespace ClassroomScheduler.Models
     public class EventType
     {
         [Key]
-        public int EventTypeId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string EventTypeName { get; set; }
+        public string Name { get; set; }
 
     }
 }

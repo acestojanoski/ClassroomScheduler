@@ -10,7 +10,7 @@ namespace ClassroomScheduler.Models
     public class Event
     {
         [Key]
-        public int EventId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public DateTime StartTime { get; set; }
@@ -21,13 +21,11 @@ namespace ClassroomScheduler.Models
         [Required]
         public bool Repeat { get; set; }
 
-        [Required]
         public int? RepeatTimes { get; set; }
 
         [Required]
         public EventType EventType { get; set; }
 
-        [Required]
         public Course Course { get; set; }
 
         [Required]

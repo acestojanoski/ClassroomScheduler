@@ -9,11 +9,11 @@ namespace ClassroomScheduler.Models
     public class ClassRoom
     {
         [Key]
-        public int ClassRoomId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string ClassRoomName { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public Building Building { get; set; }

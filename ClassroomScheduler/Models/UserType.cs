@@ -9,10 +9,10 @@ namespace ClassroomScheduler.Models
     public class UserType
     {
         [Key]
-        public int UserTypeId { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        [MaxLength(10)]
-        public string TypeName { get; set; }
+        [MaxLength(20)]
+        public string Name { get; set; }
     }
 }
