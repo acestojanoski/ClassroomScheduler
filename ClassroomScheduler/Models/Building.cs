@@ -9,10 +9,10 @@ namespace ClassroomScheduler.Models
     public class Building
     {
         [Key]
-        public int BuildingId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string BuildingName { get; set; }
+        public string Name { get; set; }
     }
 }

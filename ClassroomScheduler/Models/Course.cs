@@ -9,13 +9,15 @@ namespace ClassroomScheduler.Models
     public class Course
     {
         [Key]
-        public int CourseId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(100)]
-        public string CourseName { get; set; }
-
+        public string Name { get; set; }
+        
+        [Required]
         public int Semester { get; set; }
+
         public List<ProfessorCourse> Professors { get; set; }
 
     }

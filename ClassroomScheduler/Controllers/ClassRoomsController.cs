@@ -36,7 +36,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var classRoom = await _context.ClassRooms.SingleOrDefaultAsync(m => m.ClassRoomId == id);
+            var classRoom = await _context.ClassRooms.SingleOrDefaultAsync(m => m.Id == id);
 
             if (classRoom == null)
             {
@@ -55,7 +55,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != classRoom.ClassRoomId)
+            if (id != classRoom.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace ClassroomScheduler.Controllers
             _context.ClassRooms.Add(classRoom);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClassRoom", new { id = classRoom.ClassRoomId }, classRoom);
+            return CreatedAtAction("GetClassRoom", new { id = classRoom.Id }, classRoom);
         }
 
         // DELETE: api/ClassRooms/5
@@ -105,7 +105,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var classRoom = await _context.ClassRooms.SingleOrDefaultAsync(m => m.ClassRoomId == id);
+            var classRoom = await _context.ClassRooms.SingleOrDefaultAsync(m => m.Id == id);
             if (classRoom == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace ClassroomScheduler.Controllers
 
         private bool ClassRoomExists(int id)
         {
-            return _context.ClassRooms.Any(e => e.ClassRoomId == id);
+            return _context.ClassRooms.Any(e => e.Id == id);
         }
     }
 }

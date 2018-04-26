@@ -36,7 +36,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.EventId == id);
+            var @event = await _context.Events.SingleOrDefaultAsync(m => m.Id == id);
 
             if (@event == null)
             {
@@ -55,7 +55,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != @event.EventId)
+            if (id != @event.Id)
             {
                 return BadRequest();
             }
@@ -93,7 +93,7 @@ namespace ClassroomScheduler.Controllers
             _context.Events.Add(@event);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEvent", new { id = @event.EventId }, @event);
+            return CreatedAtAction("GetEvent", new { id = @event.Id }, @event);
         }
 
         // DELETE: api/Events/5
@@ -105,7 +105,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.EventId == id);
+            var @event = await _context.Events.SingleOrDefaultAsync(m => m.Id == id);
             if (@event == null)
             {
                 return NotFound();
@@ -119,7 +119,7 @@ namespace ClassroomScheduler.Controllers
 
         private bool EventExists(int id)
         {
-            return _context.Events.Any(e => e.EventId == id);
+            return _context.Events.Any(e => e.Id == id);
         }
     }
 }
