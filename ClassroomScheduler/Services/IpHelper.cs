@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-namespace ClassroomScheduler.Helper
+namespace ClassroomScheduler.Services
 {
     public class IpHelper
     {

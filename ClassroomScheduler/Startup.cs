@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
+using ClassroomScheduler.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -86,6 +87,7 @@ namespace ClassroomScheduler
                        .AllowAnyHeader();
             }));
 
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
 
