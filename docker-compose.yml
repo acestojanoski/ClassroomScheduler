@@ -11,7 +11,7 @@ services:
       environment:
         SA_PASSWORD: "Your_password123"
         ACCEPT_EULA: "Y"
-    frontend:
-      build: ./frontend
-      ports:
-        - "5001:80"
+    #frontend:
+      #build: ./frontend
+      #ports:
+        #- "5001:80"
