@@ -1,0 +1,29 @@
+<div class="slds-context-bar slds-is-fixed" style="left: 0; right: 0; z-index: 1">
+  <div class="slds-context-bar__primary">
+    <div class="slds-context-bar__item slds-no-hover">
+      <span class="slds-context-bar__label-action slds-context-bar__app-name">
+        <span class="slds-truncate" title="crs">CRS</span>
+      </span>
+    </div>
+  </div>
+  <nav class="slds-context-bar__secondary" role="navigation">
+    <ul class="slds-grid">
+      <li class="slds-context-bar__item" routerLinkActive="slds-is-active" *ngIf="!loggedIn">
+        <a routerLink="login" class="slds-context-bar__label-action" title="Login">
+          <span class="slds-truncate" title="Login">Login</span>
+        </a>
+      </li>
+      <li class="slds-context-bar__item" routerLinkActive="slds-is-active">
+        <a routerLink="register" class="slds-context-bar__label-action" title="Register">
+          <span class="slds-truncate" title="Register">Register</span>
+        </a>
+      </li>
+      <li class="slds-context-bar__item" *ngIf="loggedIn">
+        <a (click)="logout()" class="slds-context-bar__label-action clickable" title="Logout">
+          <span class="slds-truncate" title="Logout">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { environment } from '../environments/environment';
+
+import { AuthService } from 'services/auth.service';
 
 @Component({
   selector: 'crs-root',
@@ -7,6 +8,10 @@ import { environment } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  public apiUrl: string = environment.apiUrl;
+
+  constructor(private auth: AuthService) {
+    auth.validateToken();
+  }
+
 }
 

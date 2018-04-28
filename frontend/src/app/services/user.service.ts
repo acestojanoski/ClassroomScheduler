@@ -13,4 +13,8 @@ export class UserService {
     private http: HttpClient
   ) { }
 
+  register(data) {
+    return this.http.post<any>(`${environment.apiUrl}/Authentication/Register`, data);
+  }
+
 }

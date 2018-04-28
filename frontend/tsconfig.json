@@ -28,6 +28,9 @@
       ],
       "interceptors/*": [
         "app/interceptors/*"
+      ],
+      "validators/*": [
+        "app/validators/*"
       ]
     }
   }

@@ -1,0 +1,8 @@
+$static-font-path: '../node_modules/@salesforce-ux/design-system/assets/fonts/webfonts' !default;
+@import 'init';
+@import 'vendor/normalize';
+@include core($scoped: false, $globals: true);
+@import 'touch/index';
+@import 'components/index';
+@import 'utilities/index';
+@import 'vendor/html5boilerplate-print';

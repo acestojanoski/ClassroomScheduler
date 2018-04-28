@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 // external libraries
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NglModule } from 'ng-lightning/ng-lightning';
 
 // routing module
@@ -26,17 +25,18 @@ import { UserService } from 'services/user.service';
 
 // components
 import { AppComponent } from './app.component';
+import { NavComponent } from './core/nav/nav.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule.forRoot(),
     NglModule.forRoot()
   ],
   providers: [

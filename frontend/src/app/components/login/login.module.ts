@@ -5,10 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NglModule } from 'ng-lightning/ng-lightning';
 
-import { RegisterComponent } from './register.component';
+import { LoginComponent } from './login.component';
 
 const routes: Routes = [
-  { path: '', component: RegisterComponent }
+  { path: '', component: LoginComponent }
 ];
 
 @NgModule({
@@ -20,7 +20,7 @@ const routes: Routes = [
     NglModule
   ],
   declarations: [
-    RegisterComponent
+    LoginComponent
   ]
 })
-export class RegisterModule { }
+export class LoginModule { }
