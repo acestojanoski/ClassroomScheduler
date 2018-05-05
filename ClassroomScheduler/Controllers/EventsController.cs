@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
+using ClassroomScheduler.ViewModels;
 
 namespace ClassroomScheduler.Controllers
 {
@@ -24,7 +25,9 @@ namespace ClassroomScheduler.Controllers
         [HttpGet]
         public IEnumerable<Event> GetEvents()
         {
-            return _context.Events;
+            return _context.Events.Include(e => e.EventType)
+                .Include(cr => cr.ClassRoom)
+                .Include(c => c.Course);
         }
 
         // GET: api/Events/5
@@ -36,7 +39,10 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.Id == id);
+            var @event = await _context.Events.Include(e => e.EventType)
+                .Include(cr => cr.ClassRoom)
+                .Include(c => c.Course)
+                .SingleOrDefaultAsync(m => m.Id == id);
 
             if (@event == null)
             {
@@ -48,17 +54,24 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: api/Events/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEvent([FromRoute] int id, [FromBody] Event @event)
+        public async Task<IActionResult> PutEvent([FromRoute] int id, [FromBody] EventViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != @event.Id)
-            {
-                return BadRequest();
-            }
+            var @event = new Event {
+                Id = id,
+                Description = model.Description,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                Repeat = model.Repeat,
+                RepeatTimes = model.RepeatTimes,
+                EventType = _context.EventTypes.Where(e => e.Name.Equals(model.EventType)).First(),
+                ClassRoom = _context.ClassRooms.Where(cr => cr.Name.Equals(model.ClassRoom)).First(),
+                Course = _context.Courses.Where(c => c.Name.Equals(model.Course)).First()
+            };
 
             _context.Entry(@event).State = EntityState.Modified;
 
@@ -83,12 +96,24 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/Events
         [HttpPost]
-        public async Task<IActionResult> PostEvent([FromBody] Event @event)
+        public async Task<IActionResult> PostEvent([FromBody] EventViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var @event = new Event
+            { 
+                Description = model.Description,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                Repeat = model.Repeat,
+                RepeatTimes = model.RepeatTimes,
+                EventType = _context.EventTypes.Where(e => e.Name.Equals(model.EventType)).First(),
+                ClassRoom = _context.ClassRooms.Where(cr => cr.Name.Equals(model.ClassRoom)).First(),
+                Course = _context.Courses.Where(c => c.Name.Equals(model.Course)).First()
+            };
 
             _context.Events.Add(@event);
             await _context.SaveChangesAsync();
