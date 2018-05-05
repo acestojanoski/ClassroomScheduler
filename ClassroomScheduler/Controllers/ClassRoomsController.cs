@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
+using ClassroomScheduler.ViewModels;
 
 namespace ClassroomScheduler.Controllers
 {
@@ -24,7 +25,7 @@ namespace ClassroomScheduler.Controllers
         [HttpGet]
         public IEnumerable<ClassRoom> GetClassRooms()
         {
-            return _context.ClassRooms;
+            return _context.ClassRooms.Include(b => b.Building);
         }
 
         // GET: api/ClassRooms/5
@@ -36,7 +37,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var classRoom = await _context.ClassRooms.SingleOrDefaultAsync(m => m.Id == id);
+            var classRoom = await _context.ClassRooms.Include(b => b.Building).SingleOrDefaultAsync(m => m.Id == id);
 
             if (classRoom == null)
             {
@@ -48,17 +49,19 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: api/ClassRooms/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClassRoom([FromRoute] int id, [FromBody] ClassRoom classRoom)
+        public async Task<IActionResult> PutClassRoom([FromRoute] int id, [FromBody] ClassRoomViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != classRoom.Id)
+            var classRoom = new ClassRoom
             {
-                return BadRequest();
-            }
+                Id = id,
+                Name = model.Name,
+                Building = _context.Buildings.Where(b => b.Name.Equals(model.Building)).First()
+            };
 
             _context.Entry(classRoom).State = EntityState.Modified;
 
@@ -83,12 +86,18 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/ClassRooms
         [HttpPost]
-        public async Task<IActionResult> PostClassRoom([FromBody] ClassRoom classRoom)
+        public async Task<IActionResult> PostClassRoom([FromBody] ClassRoomViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var classRoom = new ClassRoom
+            {
+                Name = model.Name,
+                Building = _context.Buildings.Where(b => b.Name.Equals(model.Building)).First()
+            };
 
             _context.ClassRooms.Add(classRoom);
             await _context.SaveChangesAsync();

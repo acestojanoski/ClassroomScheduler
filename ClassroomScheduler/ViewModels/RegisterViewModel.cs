@@ -38,6 +38,6 @@ namespace ClassroomScheduler.ViewModes
 
         [Required]
         [Display(Name = "User type")]
-        public UserType UserType { get; set; }
+        public string UserType { get; set; }
     }
 }

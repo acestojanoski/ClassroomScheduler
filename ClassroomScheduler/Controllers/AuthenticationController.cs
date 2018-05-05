@@ -17,6 +17,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+
 namespace ClassroomScheduler.Controllers
 {
     [Produces("application/json")]
@@ -28,16 +31,17 @@ namespace ClassroomScheduler.Controllers
         private readonly IConfiguration _configuration;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
-
+        private ApplicationDbContext _context;
 
         public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> 
-            roleManager,IConfiguration configuration, IEmailSender emailSender, ILogger<AuthenticationController> logger)
+            roleManager,IConfiguration configuration, IEmailSender emailSender, ILogger<AuthenticationController> logger, ApplicationDbContext context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _emailSender = emailSender;
             _logger = logger;
+            _context = context;
         }
 
         [HttpPost]
@@ -53,7 +57,7 @@ namespace ClassroomScheduler.Controllers
                 LastName = model.LastName,
                 UserName = model.UserName,
                 Email = model.Email,
-                UserType = model.UserType
+                UserType = _context.UserTypes.Where(ut => ut.Name.Equals(model.UserType)).FirstOrDefault()
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -177,6 +181,23 @@ namespace ClassroomScheduler.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("LoggedUser")]
+        public async Task<IActionResult> LoggedUser()
+        {
+            var userName = HttpContext.User.Claims.FirstOrDefault().Value;
+
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
         }
 
     }
