@@ -57,7 +57,7 @@ namespace ClassroomScheduler.Controllers
                 LastName = model.LastName,
                 UserName = model.UserName,
                 Email = model.Email,
-                UserType = _context.UserTypes.Where(ut => ut.Name.Equals(model.UserType)).FirstOrDefault()
+                UserType = _context.UserTypes.Where(ut => ut.Id == model.UserTypeId).First()
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -183,7 +183,7 @@ namespace ClassroomScheduler.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Authorize]
         [Route("LoggedUser")]
         public async Task<IActionResult> LoggedUser()
@@ -198,6 +198,14 @@ namespace ClassroomScheduler.Controllers
             }
 
             return Ok(user);
+        }
+
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            List<ApplicationUser> users = await _userManager.Users.ToListAsync();
+            return Ok(users);
         }
 
     }

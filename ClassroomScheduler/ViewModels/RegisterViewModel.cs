@@ -37,7 +37,7 @@ namespace ClassroomScheduler.ViewModes
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [Display(Name = "User type")]
-        public string UserType { get; set; }
+        [Display(Name = "User type id")]
+        public int UserTypeId { get; set; }
     }
 }

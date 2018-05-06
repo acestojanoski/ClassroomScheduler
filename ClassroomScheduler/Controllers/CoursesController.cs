@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
+using ClassroomScheduler.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace ClassroomScheduler.Controllers
 {
@@ -14,17 +16,19 @@ namespace ClassroomScheduler.Controllers
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public CoursesController(ApplicationDbContext context)
+        public CoursesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/Courses
         [HttpGet]
         public IEnumerable<Course> GetCourses()
         {
-            return _context.Courses;
+            return _context.Courses.Include(c => c.Professors).ThenInclude(p => p.Professor);
         }
 
         // GET: api/Courses/5
@@ -36,7 +40,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest(ModelState);
             }
 
-            var course = await _context.Courses.SingleOrDefaultAsync(m => m.Id == id);
+            var course = await _context.Courses.Include(c => c.Professors).ThenInclude(p => p.Professor).SingleOrDefaultAsync(m => m.Id == id);
 
             if (course == null)
             {
@@ -48,16 +52,30 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: api/Courses/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCourse([FromRoute] int id, [FromBody] Course course)
+        public async Task<IActionResult> PutCourse([FromRoute] int id, [FromBody] CourseViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            if (id != course.Id)
+            
+            var course = new Course
             {
-                return BadRequest();
+                Id = id,
+                Name = model.Name,
+                Semester = model.Semester,
+                Professors = new List<ProfessorCourse>()
+            };
+
+            foreach (var forProf in model.ProfessorsId)
+            {
+                var tempProfessor = await _userManager.FindByIdAsync(forProf);
+                course.Professors.Add(
+                    new ProfessorCourse
+                    {
+                        Course = course,
+                        Professor = tempProfessor
+                    });
             }
 
             _context.Entry(course).State = EntityState.Modified;
@@ -83,12 +101,32 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/Courses
         [HttpPost]
-        public async Task<IActionResult> PostCourse([FromBody] Course course)
+        public async Task<IActionResult> PostCourse([FromBody] CourseViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var course = new Course
+            {
+                Name = model.Name,
+                Semester = model.Semester,
+                Professors = new List<ProfessorCourse>()
+            };
+
+
+            foreach (var forProf in model.ProfessorsId)
+            {
+                var tempProfessor = await _userManager.FindByIdAsync(forProf);
+                course.Professors.Add(
+                    new ProfessorCourse
+                    {
+                        Course = course,
+                        Professor = tempProfessor
+                    });
+            }
+
 
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();

@@ -27,11 +27,11 @@ namespace ClassroomScheduler.ViewModels
         public int? RepeatTimes { get; set; }
 
         [Required]
-        public string EventType { get; set; }
+        public int EventTypeId { get; set; }
 
         [Required]
-        public string ClassRoom { get; set; }
+        public int ClassRoomId { get; set; }
 
-        public string Course { get; set; }
+        public int CourseId { get; set; }
     }
 }

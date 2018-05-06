@@ -60,7 +60,7 @@ namespace ClassroomScheduler.Controllers
             {
                 Id = id,
                 Name = model.Name,
-                Building = _context.Buildings.Where(b => b.Name.Equals(model.Building)).First()
+                Building = _context.Buildings.Where(b => b.Id == model.BuildingId).First()
             };
 
             _context.Entry(classRoom).State = EntityState.Modified;
@@ -96,7 +96,7 @@ namespace ClassroomScheduler.Controllers
             var classRoom = new ClassRoom
             {
                 Name = model.Name,
-                Building = _context.Buildings.Where(b => b.Name.Equals(model.Building)).First()
+                Building = _context.Buildings.Where(b => b.Id == model.BuildingId).First()
             };
 
             _context.ClassRooms.Add(classRoom);
