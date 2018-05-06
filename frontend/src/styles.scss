@@ -24,3 +24,12 @@ html, body {
 button:disabled {
   cursor: not-allowed;
 }
+
+.slds-modal__content {
+  overflow: visible;
+}
+
+.dropdown__list {
+  overflow-y: scroll;
+  height: 150px;
+}

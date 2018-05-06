@@ -8,6 +8,11 @@
   </div>
   <nav class="slds-context-bar__secondary" role="navigation">
     <ul class="slds-grid">
+      <li class="slds-context-bar__item" routerLinkActive="slds-is-active">
+        <a routerLink="courses" class="slds-context-bar__label-action" title="Courses">
+          <span class="slds-truncate" title="Courses">Courses</span>
+        </a>
+      </li>
       <li class="slds-context-bar__item" routerLinkActive="slds-is-active" *ngIf="!loggedIn">
         <a routerLink="login" class="slds-context-bar__label-action" title="Login">
           <span class="slds-truncate" title="Login">Login</span>

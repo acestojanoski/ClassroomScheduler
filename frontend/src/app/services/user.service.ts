@@ -17,4 +17,12 @@ export class UserService {
     return this.http.post<any>(`${environment.apiUrl}/Authentication/Register`, data);
   }
 
+  getUser() {
+    return this.http.get<any>(`${environment.apiUrl}/Authentication/LoggedUser`);
+  }
+
+  getAllUsers() {
+    return this.http.get<any>(`${environment.apiUrl}/Authentication/GetAllUsers`);
+  }
+
 }

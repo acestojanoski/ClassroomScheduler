@@ -1,0 +1,35 @@
+<ngl-modal [(open)]="opened">
+  <div body>
+
+    <!--<ngl-notification *ngIf="errors && errors.length > 0" type="alert" severity="error" class="slds-theme--alert-texture">-->
+      <!--<h2 *ngFor="let error of errors">{{error}}</h2>-->
+    <!--</ngl-notification>-->
+    <form [formGroup]="courseForm">
+      <ngl-form-element label="Name">
+        <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required" formControlName="name">
+      </ngl-form-element>
+      <fieldset ngl-form-group-alt [required]="semester.errors?.required" class="slds-m-top--small">
+        <ng-template nglFormLabel><i>Semester</i></ng-template>
+        <ngl-form-group-element *ngFor="let s of semesters">
+          <ng-template nglFormLabel>{{s}}</ng-template>
+          <input nglFormControl type="radio" formControlName="semester" [value]="s" />
+        </ngl-form-group-element>
+      </fieldset>
+
+      <fieldset ngl-form-group class="slds-m-top--small" [required]="pick.length < 1">
+        <ng-template nglFormLabel><i>Profesor</i></ng-template>
+
+        <ngl-picklist label="Professor" [data]="professors" [(nglPick)]="pick" [(open)]="picklistOpen" [nglPickMultiple]="true" filter="name">
+          <span class="slds-truncate">{{ pickLabel }}</span>
+          <ng-template nglPicklistItem let-item>{{item.name}}</ng-template>
+        </ngl-picklist>
+
+      </fieldset>
+
+    </form>
+  </div>
+  <ng-template ngl-modal-footer>
+    <button type="button" nglButton="success" (click)="submit()" >Submit</button>
+    <button type="button" nglButton="neutral" (click)="opened = false">Close</button>
+  </ng-template>
+</ngl-modal>

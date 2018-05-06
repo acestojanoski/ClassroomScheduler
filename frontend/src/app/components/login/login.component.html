@@ -1,24 +1,28 @@
-<div class="slds-box">
-  <ngl-notification *ngIf="error" type="alert" severity="error" class="slds-theme--alert-texture">
-    <h2>{{error}}</h2>
-  </ngl-notification>
-  <form [formGroup]="loginForm">
-    <ngl-form-element label="Email" class="slds-m-top--small" [error]="email.errors?.email ? 'Email is not valid' : null">
-      <input nglFormControl type="text" placeholder="My input" [required]="email.errors?.required" formControlName="email">
-    </ngl-form-element>
-    <ngl-form-element label="Password" class="slds-m-top--small">
-      <input nglFormControl type="text" placeholder="My input" [required]="password.errors?.required" formControlName="password">
-    </ngl-form-element>
-    <ngl-form-checkbox label="Remember me" class="slds-m-top--small">
-      <input nglFormControl type="checkbox" />
-    </ngl-form-checkbox>
+<div class="slds-col"></div>
+<div class="slds-col">
+  <div class="slds-box">
+    <ngl-notification *ngIf="error" type="alert" severity="error" class="slds-theme--alert-texture">
+      <h2>{{error}}</h2>
+    </ngl-notification>
+    <form [formGroup]="loginForm">
+      <ngl-form-element label="Email" class="slds-m-top--small" [error]="email.errors?.email ? 'Email is not valid' : null">
+        <input nglFormControl type="text" placeholder="My input" [required]="email.errors?.required" formControlName="email">
+      </ngl-form-element>
+      <ngl-form-element label="Password" class="slds-m-top--small">
+        <input nglFormControl type="text" placeholder="My input" [required]="password.errors?.required" formControlName="password">
+      </ngl-form-element>
+      <ngl-form-checkbox label="Remember me" class="slds-m-top--small">
+        <input nglFormControl type="checkbox" />
+      </ngl-form-checkbox>
 
-    <a href="javascript:void(0);" class="slds-text-link_reset slds-text-link slds-m-top--small" style="display: block">Did you forgot your password ?</a>
+      <a href="javascript:void(0);" class="slds-text-link_reset slds-text-link slds-m-top--small" style="display: block">Did you forgot your password ?</a>
 
-    <div class="slds-m-top--small">
-      <button type="button" nglButton="success" (click)="submit()" [disabled]="loginForm.invalid">Log in</button>
-      <button type="button" nglButton="neutral" (click)="reset()">Reset</button>
-    </div>
-  </form>
+      <div class="slds-m-top--small">
+        <button type="button" nglButton="success" (click)="submit()" [disabled]="loginForm.invalid">Log in</button>
+        <button type="button" nglButton="neutral" (click)="reset()">Reset</button>
+      </div>
+    </form>
+  </div>
 </div>
+<div class="slds-col"></div>
 
