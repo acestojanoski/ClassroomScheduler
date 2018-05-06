@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
+using ClassroomScheduler.ViewModels;
 
 namespace ClassroomScheduler.Controllers
 {
@@ -48,17 +49,18 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: api/EventTypes/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEventType([FromRoute] int id, [FromBody] EventType eventType)
+        public async Task<IActionResult> PutEventType([FromRoute] int id, [FromBody] EventTypeViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != eventType.Id)
+            var eventType = new EventType
             {
-                return BadRequest();
-            }
+                Id = id,
+                Name = model.Name
+            };
 
             _context.Entry(eventType).State = EntityState.Modified;
 
@@ -83,12 +85,17 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/EventTypes
         [HttpPost]
-        public async Task<IActionResult> PostEventType([FromBody] EventType eventType)
+        public async Task<IActionResult> PostEventType([FromBody] EventTypeViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var eventType = new EventType
+            {
+                Name = model.Name
+            };
 
             _context.EventTypes.Add(eventType);
             await _context.SaveChangesAsync();

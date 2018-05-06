@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
+using ClassroomScheduler.ViewModels;
 
 namespace ClassroomScheduler.Controllers
 {
@@ -48,17 +49,18 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: api/UserTypes/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserType([FromRoute] int id, [FromBody] UserType userType)
+        public async Task<IActionResult> PutUserType([FromRoute] int id, [FromBody] UserTypeViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != userType.Id)
+            var userType = new UserType
             {
-                return BadRequest();
-            }
+                Id = id,
+                Name = model.Name
+            };
 
             _context.Entry(userType).State = EntityState.Modified;
 
@@ -83,12 +85,17 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/UserTypes
         [HttpPost]
-        public async Task<IActionResult> PostUserType([FromBody] UserType userType)
+        public async Task<IActionResult> PostUserType([FromBody] UserTypeViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var userType = new UserType
+            {
+                Name = model.Name
+            };
 
             _context.UserTypes.Add(userType);
             await _context.SaveChangesAsync();

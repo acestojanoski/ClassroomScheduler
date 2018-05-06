@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
+using ClassroomScheduler.ViewModels;
 
 namespace ClassroomScheduler.Controllers
 {
@@ -48,17 +49,18 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: api/Buildings/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuilding([FromRoute] int id, [FromBody] Building building)
+        public async Task<IActionResult> PutBuilding([FromRoute] int id, [FromBody] BuildingViewModel building)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != building.Id)
+            var Building = new Building
             {
-                return BadRequest();
-            }
+                Id = id,
+                Name = building.Name
+            };
 
             _context.Entry(building).State = EntityState.Modified;
 
@@ -83,12 +85,17 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/Buildings
         [HttpPost]
-        public async Task<IActionResult> PostBuilding([FromBody] Building building)
+        public async Task<IActionResult> PostBuilding([FromBody] BuildingViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var building = new Building
+            {
+                Name = model.Name
+            };
 
             _context.Buildings.Add(building);
             await _context.SaveChangesAsync();
