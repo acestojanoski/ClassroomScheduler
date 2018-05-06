@@ -85,7 +85,7 @@ namespace ClassroomScheduler.Controllers
                 RepeatTimes = model.RepeatTimes,
                 EventType = _context.EventTypes.Where(e => e.Id == model.EventTypeId).First(),
                 ClassRoom = _context.ClassRooms.Where(cr => cr.Id == model.ClassRoomId).First(),
-                Course = _context.Courses.Where(c => c.Id == model.CourseId).First(),
+                Course = _context.Courses.Where(c => c.Id == model.CourseId).FirstOrDefault(),
                 CreatedBy = user
             };
 
@@ -138,7 +138,7 @@ namespace ClassroomScheduler.Controllers
                 RepeatTimes = model.RepeatTimes,
                 EventType = _context.EventTypes.Where(e => e.Id == model.EventTypeId).First(),
                 ClassRoom = _context.ClassRooms.Where(cr => cr.Id == model.ClassRoomId).First(),
-                Course = _context.Courses.Where(c => c.Id == model.CourseId).First(),
+                Course = _context.Courses.Where(c => c.Id == model.CourseId).FirstOrDefault(),
                 CreatedBy = user
             };
 

@@ -204,7 +204,7 @@ namespace ClassroomScheduler.Controllers
         [Route("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            List<ApplicationUser> users = await _userManager.Users.ToListAsync();
+            List<ApplicationUser> users = await _userManager.Users.Include(c => c.Courses).ThenInclude(cr => cr.Course).ToListAsync();
             return Ok(users);
         }
 

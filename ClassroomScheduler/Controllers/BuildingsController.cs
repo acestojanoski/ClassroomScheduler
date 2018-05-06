@@ -49,17 +49,17 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: api/Buildings/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBuilding([FromRoute] int id, [FromBody] BuildingViewModel building)
+        public async Task<IActionResult> PutBuilding([FromRoute] int id, [FromBody] BuildingViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var Building = new Building
+            var building = new Building
             {
                 Id = id,
-                Name = building.Name
+                Name = model.Name
             };
 
             _context.Entry(building).State = EntityState.Modified;
