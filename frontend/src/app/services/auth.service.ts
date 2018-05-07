@@ -10,7 +10,8 @@ import { environment } from 'environments/environment';
 @Injectable()
 export class AuthService {
 
-  public loggedIn: Subject<boolean> = new BehaviorSubject<boolean>(false);
+  public user: Subject<any> = new BehaviorSubject<any>(null);
+  private jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(
     private http: HttpClient
@@ -21,8 +22,8 @@ export class AuthService {
   }
 
   public validateToken() {
-    const helper = new JwtHelperService();
-    this.loggedIn.next(!helper.isTokenExpired(this.getToken()));
+    const value = !this.jwtHelper.isTokenExpired(this.getToken()) ? this.jwtHelper.decodeToken(this.getToken()) : null;
+    this.user.next(value);
   }
 
   public getToken() {
@@ -30,12 +31,12 @@ export class AuthService {
   }
 
   public setSession(token) {
-    this.loggedIn.next(true);
+    this.user.next(this.jwtHelper.decodeToken(token));
     return localStorage.setItem('access_token', token);
   }
 
   public destroySession() {
-    this.loggedIn.next(false);
+    this.user.next(null);
     localStorage.clear();
   }
 
