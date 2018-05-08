@@ -1,6 +1,7 @@
 <div class="slds-trial-header slds-grid slds-is-fixed">
   <div class="slds-grid">
     <button class="slds-button" routerLink="courses" routerLinkActive="active">Courses</button>
+    <button class="slds-button" routerLink="classrooms" routerLinkActive="active">Classrooms</button>
     <button class="slds-button" routerLink="register" routerLinkActive="active">Register</button>
     <button class="slds-button" routerLink="login" routerLinkActive="active" *ngIf="!loggedIn">Login</button>
     <button class="slds-button" (click)="logout()" *ngIf="loggedIn">Logout</button>
