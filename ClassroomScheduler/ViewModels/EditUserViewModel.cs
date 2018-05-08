@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ClassroomScheduler.ViewModels
 {
-    public class ForgotPasswordViewModel
+    public class EditUserViewModel
     {
-        [Required]
+        public string Id { get; set; }
+
+        public string UserName { get; set; }
+
         [EmailAddress]
         public string Email { get; set; }
-
-        public string Code { get; set; }
     }
 }

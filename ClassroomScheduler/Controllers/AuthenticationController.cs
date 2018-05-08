@@ -152,7 +152,10 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest("Could not continue with this request. (E1)");
             
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var callbackUrl = $"http://localhost:65000/api/Authentication/ResetPassword?email={model.Email}&code={code}";
+
+            var url = _configuration.GetSection("ForgotPasswordSettings").GetSection("URL").Value;
+
+            var callbackUrl = $"url";
 
             await _emailSender.SendEmailAsync(model.Email, "Reset Password",
               $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
