@@ -33,7 +33,8 @@ export class CreateCourseComponent implements OnInit {
   public open(courseId = null) {
     this.courseId = courseId;
     this.opened = true;
-
+    this.courseForm.reset();
+    this.pick = [];
     if (this.courseId) {
       this.getCourseById(this.courseId);
     }
@@ -54,8 +55,6 @@ export class CreateCourseComponent implements OnInit {
 
   private createCourse(course) {
     this.courseService.createCourse(course).subscribe(res => {
-      this.courseForm.reset();
-      this.pick = [];
       this.opened = false;
       this.newCourse.emit();
     }, err => console.error(err));
@@ -63,8 +62,6 @@ export class CreateCourseComponent implements OnInit {
 
   private updateCourse(id, course) {
     this.courseService.updateCourse(id, course).subscribe(res => {
-      this.courseForm.reset();
-      this.pick = [];
       this.opened = false;
       this.newCourse.emit();
     }, err => console.error(err));
@@ -91,7 +88,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   get pickLabel() {
-    return this.pick && this.pick.length ? `${this.pick.length} professors selected` : 'Select professor(s)';
+    return this.pick && this.pick.length ? this.pick.map(p => p.name).join(', ') : 'Select professor(s)';
   }
 
   get name() { return this.courseForm.get('name'); }

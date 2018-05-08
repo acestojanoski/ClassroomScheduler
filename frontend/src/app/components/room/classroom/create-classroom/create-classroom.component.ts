@@ -25,13 +25,15 @@ export class CreateClassroomComponent implements OnInit {
 
   ngOnInit() {
     this.classroomForm = this.initClassroomForm();
+    this.pick = [];
     this.getBuildings();
   }
 
   public open(classroomId = null) {
     this.classroomId = classroomId;
     this.opened = true;
-
+    this.pick = [];
+    this.classroomForm.reset();
     if(this.classroomId){
       this.getClassroomById(this.classroomId);
     }
@@ -42,7 +44,6 @@ export class CreateClassroomComponent implements OnInit {
 
     const classroom = Object.assign({}, this.classroomForm.value);
     classroom.buildingId = this.pick.id;
-    console.log(this.pick);
 
     if (this.classroomId) {
       this.updateClassroom(this.classroomId, classroom);
@@ -53,8 +54,6 @@ export class CreateClassroomComponent implements OnInit {
 
   private createClassroom(classroom) {
     this.classroomService.createClassRoom(classroom).subscribe(res =>{
-      this.classroomForm.reset();
-      this.pick = [];
       this.opened = false;
       this.newClassroom.emit();
     }, err => console.error(err));
@@ -62,7 +61,6 @@ export class CreateClassroomComponent implements OnInit {
 
   private updateClassroom(id, classroom) {
     this.classroomService.updateClassRoom(id, classroom).subscribe(res => {
-      this.classroomForm.reset();
       this.pick = [];
       this.opened = false;
       this.newClassroom.emit();
@@ -88,7 +86,7 @@ export class CreateClassroomComponent implements OnInit {
     });
   }
   get pickLabel() {
-    return this.pick.value || 'Select an option';
+    return this.pick.name || 'Select an option';
   }
 
   get name() { return this.classroomForm.get('name');}

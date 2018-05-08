@@ -23,8 +23,8 @@ export class CreateBuildingComponent implements OnInit {
 
   public open(buildingId = null) {
     this.buildingId = buildingId;
+    this.buildingForm.reset();
     this.opened = true;
-
     if(this.buildingId){
       this.getBuildingById(this.buildingId);
     }
@@ -44,7 +44,6 @@ export class CreateBuildingComponent implements OnInit {
 
   private createBuilding(building) {
     this.buildingService.createBuilding(building).subscribe(res =>{
-      this.buildingForm.reset();
       this.opened = false;
       this.newBuilding.emit();
     }, err => console.error(err));
@@ -52,7 +51,6 @@ export class CreateBuildingComponent implements OnInit {
 
   private updateBuilding(id, building) {
     this.buildingService.updateBuilding(id, building).subscribe(res => {
-      this.buildingForm.reset();
       this.opened = false;
       this.newBuilding.emit();
     }, err => console.error(err));
