@@ -28,7 +28,7 @@ export class CourseLayoutComponent implements OnInit {
   private getCourses() {
     this.courseService.getCourses().subscribe(res => {
       this.courses = res;
-      this.loading = false
+      this.loading = false;
     }, err => console.error(err));
   }
 

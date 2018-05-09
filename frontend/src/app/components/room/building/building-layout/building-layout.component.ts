@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Building} from "models/building.model";
-import {BuildingService} from "services/building.service";
+import {Building} from 'models/building.model';
+import {BuildingService} from 'services/building.service';
 
 @Component({
   selector: 'crs-building-layout',

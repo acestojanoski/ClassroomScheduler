@@ -11,7 +11,7 @@ export class CreateBuildingComponent implements OnInit {
 
   @Output() public newBuilding: EventEmitter<any> = new EventEmitter<any>();
   public buildingForm: FormGroup;
-  public opened: boolean = false;
+  public opened = false;
   public buildingId: number;
 
 
@@ -25,7 +25,7 @@ export class CreateBuildingComponent implements OnInit {
     this.buildingId = buildingId;
     this.buildingForm.reset();
     this.opened = true;
-    if(this.buildingId){
+    if (this.buildingId) {
       this.getBuildingById(this.buildingId);
     }
   }
@@ -43,7 +43,7 @@ export class CreateBuildingComponent implements OnInit {
   }
 
   private createBuilding(building) {
-    this.buildingService.createBuilding(building).subscribe(res =>{
+    this.buildingService.createBuilding(building).subscribe(res => {
       this.opened = false;
       this.newBuilding.emit();
     }, err => console.error(err));
@@ -67,5 +67,5 @@ export class CreateBuildingComponent implements OnInit {
     });
   }
 
-  get name() { return this.buildingForm.get('name');}
+  get name() { return this.buildingForm.get('name'); }
 }

@@ -13,7 +13,7 @@ export class CreateCourseComponent implements OnInit {
 
   @Output() public newCourse: EventEmitter<any> = new EventEmitter<any>();
   public courseForm: FormGroup;
-  public opened: boolean = false;
+  public opened = false;
   public courseId: number;
   public semesters = [1, 2, 3, 4, 5, 6, 7, 8];
   public professors = [];

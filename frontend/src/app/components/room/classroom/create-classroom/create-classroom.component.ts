@@ -12,7 +12,7 @@ export class CreateClassroomComponent implements OnInit {
 
   @Output() public newClassroom: EventEmitter<any> = new EventEmitter<any>();
   public classroomForm: FormGroup;
-  public opened: boolean = false;
+  public opened = false;
   public classroomId: number;
   public buildings = [];
   public pick: any = [];
@@ -34,7 +34,7 @@ export class CreateClassroomComponent implements OnInit {
     this.opened = true;
     this.pick = [];
     this.classroomForm.reset();
-    if(this.classroomId){
+    if (this.classroomId) {
       this.getClassroomById(this.classroomId);
     }
   }
@@ -53,7 +53,7 @@ export class CreateClassroomComponent implements OnInit {
   }
 
   private createClassroom(classroom) {
-    this.classroomService.createClassRoom(classroom).subscribe(res =>{
+    this.classroomService.createClassRoom(classroom).subscribe(res => {
       this.opened = false;
       this.newClassroom.emit();
     }, err => console.error(err));
@@ -89,5 +89,5 @@ export class CreateClassroomComponent implements OnInit {
     return this.pick.name || 'Select an option';
   }
 
-  get name() { return this.classroomForm.get('name');}
+  get name() { return this.classroomForm.get('name'); }
 }
