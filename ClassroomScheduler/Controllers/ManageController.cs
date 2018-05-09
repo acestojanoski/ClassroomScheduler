@@ -44,6 +44,7 @@ namespace ClassroomScheduler.Controllers
         // PUT: Update user
         [HttpPut]
         [Authorize]
+        [Route("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] EditUserViewModel model)
         {
             if (!ModelState.IsValid)
@@ -57,6 +58,8 @@ namespace ClassroomScheduler.Controllers
 
             user.Email = model.Email;
             user.UserName = model.UserName;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
 
             IdentityResult result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
@@ -66,19 +69,51 @@ namespace ClassroomScheduler.Controllers
             return BadRequest(result);
         }
 
-        // DELETE: Delete user
-        [HttpDelete]
+        // Change password
+        [HttpPost]
         [Authorize]
-        public async Task<IActionResult> DeleteUser()
+        [Route("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userName = HttpContext.User.Claims.FirstOrDefault().Value;
+            ApplicationUser user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                return BadRequest("Could not find user!");
+            }
+
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            if (changePasswordResult.Succeeded)
+            {
+                return Ok(changePasswordResult);
+            }
+            return BadRequest(changePasswordResult);
+        }
+
+        // POST: Delete user
+        [HttpPost]
+        [Authorize]
+        [Route("DeleteUser")]
+        public async Task<IActionResult> DeleteUser(DeleteUserViewModel model)
         {
             var userName = HttpContext.User.Claims.FirstOrDefault().Value;
-
-            if (!String.IsNullOrEmpty(userName))
-                return BadRequest("Empty parameter!");
-
             ApplicationUser user = await _userManager.FindByNameAsync(userName);
+
             if (user == null)
+            {
                 return BadRequest("Could not find user!");
+            }
+
+            if (!await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                return BadRequest("Invalid password!");
+            }            
 
             IdentityResult result = await _userManager.DeleteAsync(user);
             if (result.Succeeded)
