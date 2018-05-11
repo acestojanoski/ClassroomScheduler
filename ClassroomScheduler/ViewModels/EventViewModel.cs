@@ -26,6 +26,8 @@ namespace ClassroomScheduler.ViewModels
 
         public int? RepeatTimes { get; set; }
 
+        public string RepeatInterval { get; set; }
+
         [Required]
         public int EventTypeId { get; set; }
 

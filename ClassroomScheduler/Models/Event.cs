@@ -23,6 +23,8 @@ namespace ClassroomScheduler.Models
 
         public int? RepeatTimes { get; set; }
 
+        public string RepeatInterval { get; set; }
+
         [Required]
         public EventType EventType { get; set; }
 
