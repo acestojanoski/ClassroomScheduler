@@ -1,28 +1,43 @@
-<div class="slds-col"></div>
-<div class="slds-col">
-  <div class="slds-box">
+<article class="slds-card">
+  <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+          <span class="slds-text-heading_small">Register</span>
+        </h2>
+      </div>
+    </header>
+  </div>
+  <div class="slds-card__body slds-card__body_inner">
     <ngl-notification *ngIf="errors && errors.length > 0" type="alert" severity="error" class="slds-theme--alert-texture">
       <h2 *ngFor="let error of errors">{{error}}</h2>
     </ngl-notification>
     <form [formGroup]="registerForm">
+
       <ngl-form-element label="Username">
         <input nglFormControl type="text" placeholder="My input" [required]="userName.errors?.required" formControlName="userName">
       </ngl-form-element>
+
       <ngl-form-element label="Firstname" class="slds-m-top--small">
         <input nglFormControl type="text" placeholder="My input" [required]="firstName.errors?.required" formControlName="firstName">
       </ngl-form-element>
+
       <ngl-form-element label="Lastname" class="slds-m-top--small">
         <input nglFormControl type="text" placeholder="My input" [required]="lastName.errors?.required" formControlName="lastName">
       </ngl-form-element>
+
       <ngl-form-element label="Email" class="slds-m-top--small" [error]="email.errors?.email ? 'Email is not valid' : null">
         <input nglFormControl type="text" placeholder="My input" [required]="email.errors?.required" formControlName="email">
       </ngl-form-element>
+
       <ngl-form-element label="Password" class="slds-m-top--small">
         <input nglFormControl type="text" placeholder="My input" [required]="password.errors?.required" formControlName="password">
       </ngl-form-element>
+
       <ngl-form-element label="Confirm password" class="slds-m-top--small" [error]="registerForm.errors?.matchPassword ? 'Password doesn\'t match' : null">
         <input nglFormControl type="text" placeholder="My input" [required]="confirmPassword.errors?.required" formControlName="confirmPassword">
       </ngl-form-element>
+
       <fieldset ngl-form-group label="Type" [required]="userTypeName.errors?.required" class="slds-m-top--small">
         <ngl-form-group-element *ngFor="let userType of userTypes" [label]="userType.name">
           <input nglFormControl type="radio" [value]="userType.name" formControlName="userType" />
@@ -35,5 +50,4 @@
       </div>
     </form>
   </div>
-</div>
-<div class="slds-col"></div>
+</article>

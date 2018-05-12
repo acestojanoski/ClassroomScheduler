@@ -1,5 +1,7 @@
+import { Building } from 'models/building.model';
+
 export interface ClassRoom {
   id: number;
   name: string;
-  buildingName: string;
+  building: Building;
 }

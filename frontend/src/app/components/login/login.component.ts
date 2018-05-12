@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from 'services/auth.service';
 
@@ -14,6 +15,7 @@ export class LoginComponent implements OnInit {
   public error: string;
 
   constructor(
+    private router: Router,
     private authService: AuthService
   ) { }
 
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(res => {
       this.authService.setSession(res.token);
       this.error = null;
+      this.router.navigate(['events']);
     }, err => this.error = err.error);
   }
 

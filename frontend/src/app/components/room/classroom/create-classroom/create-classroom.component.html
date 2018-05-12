@@ -1,20 +1,16 @@
 <ngl-modal [(open)]="opened">
   <div body>
-
     <form [formGroup]="classroomForm">
+
       <ngl-form-element label="Name">
         <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required" formControlName="name">
       </ngl-form-element>
 
-      <fieldset ngl-form-group class="slds-m-top--small" [required]="pick.length < 1">
-        <ng-template nglFormLabel><i>Building</i></ng-template>
-
-        <ngl-picklist label="Building" [data]="buildings" [(nglPick)]="pick" [(open)]="picklistOpen" [nglPickMultiple]="false" filter="name">
-          <span class="slds-truncate">{{ pickLabel }}</span>
-          <ng-template nglPicklistItem let-item>{{item.name}}</ng-template>
-        </ngl-picklist>
-
-      </fieldset>
+      <ngl-form-element label="Building" class="slds-m-top--small">
+        <select nglFormControl class="slds-select" formControlName="buildingId" [required]="buildingId.errors?.required">
+          <option *ngFor="let building of buildings" [ngValue]="building?.id">{{ building?.name }}</option>
+        </select>
+      </ngl-form-element>
 
     </form>
   </div>

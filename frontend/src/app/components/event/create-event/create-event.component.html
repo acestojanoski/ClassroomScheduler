@@ -1,0 +1,71 @@
+<ngl-modal [(open)]="opened">
+  <div body>
+    <form [formGroup]="eventForm" class="slds-form slds-form_compound">
+
+      <ngl-form-element label="Description">
+        <input nglFormControl type="text" placeholder="My input" [required]="description.errors?.required" formControlName="description">
+      </ngl-form-element>
+
+      <ngl-form-element label="Event type" class="slds-m-top--small">
+        <select nglFormControl class="slds-select" formControlName="eventTypeId" [required]="eventTypeId.errors?.required">
+          <option *ngFor="let eventType of eventTypes" [ngValue]="eventType?.id">{{ eventType?.name }}</option>
+        </select>
+      </ngl-form-element>
+
+      <ngl-form-element label="Class room" class="slds-m-top--small">
+        <select nglFormControl class="slds-select" formControlName="classRoomId" [required]="classRoomId.errors?.required">
+          <option *ngFor="let classRoom of classRooms" [ngValue]="classRoom?.id">{{ classRoom?.name }}</option>
+        </select>
+      </ngl-form-element>
+
+      <ngl-form-element label="Course" class="slds-m-top--small">
+        <select nglFormControl class="slds-select" formControlName="courseId" [required]="courseId.errors?.required">
+          <option *ngFor="let course of courses" [ngValue]="course?.id">{{ course?.name }}</option>
+        </select>
+      </ngl-form-element>
+
+      <fieldset class="slds-form-element slds-m-top--small">
+        <legend class="slds-form-element__label slds-form-element__legend slds-text-title_caps">Repeat</legend>
+        <div class="slds-form-element__group">
+          <div class="slds-form-element__row">
+            <div class="slds-form-element slds-size_1-of-2">
+              <ngl-form-element label="Interval">
+                <select nglFormControl class="slds-select" formControlName="repeatInterval" [required]="repeatInterval.errors?.required">
+                  <option *ngFor="let repeatInterval of repeatIntervals" [ngValue]="repeatInterval.key">{{ repeatInterval?.title }}</option>
+                </select>
+              </ngl-form-element>
+            </div>
+            <div class="slds-form-element slds-size_1-of-2">
+              <ngl-form-element label="Times">
+                <input nglFormControl type="number" placeholder="My input" [required]="repeatTimes.errors?.required" formControlName="repeatTimes">
+              </ngl-form-element>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="slds-form-element slds-m-top--small">
+        <legend class="slds-form-element__label slds-form-element__legend slds-text-title_caps">Time</legend>
+        <div class="slds-form-element__group">
+          <div class="slds-form-element__row">
+            <div class="slds-form-element slds-size_1-of-2">
+              <label class="slds-form-element__label"><abbr *ngIf="startTime.errors?.required" class="slds-required" title="required">*</abbr>Start</label>
+              <input class="slds-input" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="startTime" />
+              <owl-date-time [firstDayOfWeek]="1" #dt1></owl-date-time>
+            </div>
+            <div class="slds-form-element slds-size_1-of-2">
+              <label class="slds-form-element__label"><abbr *ngIf="endTime.errors?.required" class="slds-required" title="required">*</abbr>End</label>
+              <input class="slds-input" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="endTime" />
+              <owl-date-time [firstDayOfWeek]="1" #dt2></owl-date-time>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+    </form>
+  </div>
+  <ng-template ngl-modal-footer>
+    <button type="button" nglButton="success" (click)="submit()" >Submit</button>
+    <button type="button" nglButton="neutral" (click)="opened = false">Close</button>
+  </ng-template>
+</ngl-modal>

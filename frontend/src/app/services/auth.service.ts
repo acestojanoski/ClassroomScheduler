@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 import { Subject } from 'rxjs/Subject';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -14,7 +16,8 @@ export class AuthService {
   private jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   login(data) {
@@ -22,8 +25,12 @@ export class AuthService {
   }
 
   public validateToken() {
-    const value = !this.jwtHelper.isTokenExpired(this.getToken()) ? this.jwtHelper.decodeToken(this.getToken()) : null;
+    const value = !this.isTokenExpired() ? this.jwtHelper.decodeToken(this.getToken()) : null;
     this.user.next(value);
+  }
+
+  public isTokenExpired() {
+    return this.jwtHelper.isTokenExpired(this.getToken());
   }
 
   public getToken() {
@@ -38,6 +45,7 @@ export class AuthService {
   public destroySession() {
     this.user.next(null);
     localStorage.clear();
+    this.router.navigate(['login']);
   }
 
 }

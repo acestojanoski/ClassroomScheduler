@@ -19,7 +19,6 @@ export class NavComponent implements OnInit {
     this.auth.user.subscribe(res => {
       this.user = res;
       this.loggedIn = !!res;
-      console.log(this.user);
     });
   }
 

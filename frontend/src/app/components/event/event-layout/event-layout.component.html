@@ -1,0 +1,87 @@
+<article class="slds-card">
+  <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-contact" title="events">
+          <svg aria-hidden="true" class="slds-icon slds-icon_small">
+          </svg>
+        </span>
+      </div>
+      <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+          <span class="slds-text-heading_small">Events ({{events.length}})</span>
+        </h2>
+      </div>
+      <div class="slds-no-flex">
+        <button class="slds-button slds-button_neutral" (click)="createEvent.open()">New</button>
+      </div>
+    </header>
+  </div>
+  <br>
+
+  <div class="slds-card__body slds-card__body_inner" *ngIf="events.length > 1 && !loading">
+    <div class="slds-grid slds-wrap slds-grid_vertical-align-center">
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_center">
+        <div class="slds-button-group" role="group">
+          <button class="slds-button slds-button_neutral" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">Previous</button>
+          <button class="slds-button slds-button_neutral" mwlCalendarToday [(viewDate)]="viewDate">Today</button>
+          <button class="slds-button slds-button_neutral" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">Next</button>
+        </div>
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_center">
+        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3 slds-text-align_center">
+        <div class="slds-button-group" role="group">
+          <button class="slds-button slds-button_neutral" [class.slds-button_brand]="view === 'month'" (click)="view = 'month'">Month</button>
+          <button class="slds-button slds-button_neutral" [class.slds-button_brand]="view === 'week'" (click)="view = 'week'">Week</button>
+          <button class="slds-button slds-button_neutral" [class.slds-button_brand]="view === 'day'" (click)="view = 'day'">Day</button>
+        </div>
+      </div>
+    </div>
+    <div [ngSwitch]="view" class="slds-m-top_small">
+      <mwl-calendar-month-view
+                           *ngSwitchCase="'month'"
+                           [@.disabled]="true"
+                           [viewDate]="viewDate"
+                           [events]="events"
+                           [weekStartsOn]="1"
+                           [refresh]="refresh"
+                           [activeDayIsOpen]="activeDayIsOpen"
+                           (dayClicked)="dayClicked($event.day)"
+                           (eventClicked)="handleEvent('Clicked', $event.event)">
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+                           *ngSwitchCase="'week'"
+                           [viewDate]="viewDate"
+                           [events]="events"
+                           [refresh]="refresh"
+                           [weekStartsOn]="1"
+                           (eventClicked)="handleEvent('Clicked', $event.event)">
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+                           *ngSwitchCase="'day'"
+                           [viewDate]="viewDate"
+                           [events]="events"
+                           [refresh]="refresh"
+                           [dayStartHour]="7"
+                           [dayEndHour]="20"
+                           (eventClicked)="handleEvent('Clicked', $event.event)">
+      </mwl-calendar-day-view>
+    </div>
+  </div>
+  <div class="slds-text-longform slds-text-align_center" *ngIf="events.length < 1 && !loading">
+    <h3 class="slds-text-heading_medium">No events</h3>
+    <p class="slds-text-body_regular">Nothing needs your attention right now. Check back later.</p>
+  </div>
+
+  <div class="slds-card__body slds-card__body_inner" *ngIf="loading">
+    <div role="status" class="slds-spinner slds-spinner_small">
+      <span class="slds-assistive-text">Loading</span>
+      <div class="slds-spinner__dot-a"></div>
+      <div class="slds-spinner__dot-b"></div>
+    </div>
+  </div>
+</article>
+
+<crs-create-event #createEvent (newEvent)="getEvents()"></crs-create-event>

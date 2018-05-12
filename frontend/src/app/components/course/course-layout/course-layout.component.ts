@@ -21,11 +21,11 @@ export class CourseLayoutComponent implements OnInit {
     this.getCourses();
   }
 
-  mapProfessors(professors) {
+  public mapProfessors(professors) {
     return professors.map(p => p.professor.firstName + ' ' + p.professor.lastName).join(', ');
   }
 
-  private getCourses() {
+  public getCourses() {
     this.courseService.getCourses().subscribe(res => {
       this.courses = res;
       this.loading = false;

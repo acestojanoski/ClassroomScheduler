@@ -1,6 +1,6 @@
 <ngl-modal [(open)]="opened">
   <div body>
-    <form [formGroup]="buildingForm">
+    <form [formGroup]="eventTypeForm">
       <ngl-form-element label="Name">
         <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required" formControlName="name">
       </ngl-form-element>

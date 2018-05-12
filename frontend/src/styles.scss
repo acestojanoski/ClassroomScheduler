@@ -1,20 +1,23 @@
 @import 'lds';
+@import '../node_modules/angular-calendar/scss/angular-calendar';
+@import '../node_modules/ng-pick-datetime/assets/style/picker.min.css';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Salesforce Sans", Arial, sans-serif;
 }
 
 html, body {
   height: 100%;
   width: 100%;
-  font-family: "Salesforce Sans", Arial, sans-serif;
 }
 
 .page-wrapper {
   width: 100%;
   height: 100%;
+  padding-top: 3.125rem;
 }
 
 .clickable {
@@ -32,4 +35,20 @@ button:disabled {
 .dropdown__list {
   overflow-y: scroll;
   height: 150px;
+}
+
+.cdk-overlay-container {
+  z-index: 10000;
+}
+
+.owl-dt-calendar-table .owl-dt-calendar-cell-selected {
+  background-color: #061c3f;
+}
+
+.owl-dt-timer-content .owl-dt-timer-input {
+  border: 0;
+}
+
+article.slds-card, div.slds-box {
+  margin: 10px;
 }

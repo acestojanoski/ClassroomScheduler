@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { ClassRoomService } from 'services/class-room.service';
 import { BuildingService } from 'services/building.service';
+
+import { Building } from 'models/building.model';
 
 @Component({
   selector: 'crs-create-classroom',
@@ -14,9 +17,7 @@ export class CreateClassroomComponent implements OnInit {
   public classroomForm: FormGroup;
   public opened = false;
   public classroomId: number;
-  public buildings = [];
-  public pick: any = [];
-  public picklistOpen = false;
+  public buildings: Building[] = [];
 
   constructor(
     private classroomService: ClassRoomService,
@@ -25,25 +26,22 @@ export class CreateClassroomComponent implements OnInit {
 
   ngOnInit() {
     this.classroomForm = this.initClassroomForm();
-    this.pick = [];
     this.getBuildings();
   }
 
   public open(classroomId = null) {
     this.classroomId = classroomId;
     this.opened = true;
-    this.pick = [];
     this.classroomForm.reset();
     if (this.classroomId) {
       this.getClassroomById(this.classroomId);
     }
   }
 
-  submit() {
-    if (this.classroomForm.invalid || this.pick.length < 1) { return; }
+  public submit() {
+    if (this.classroomForm.invalid) { return; }
 
     const classroom = Object.assign({}, this.classroomForm.value);
-    classroom.buildingId = this.pick.id;
 
     if (this.classroomId) {
       this.updateClassroom(this.classroomId, classroom);
@@ -61,33 +59,31 @@ export class CreateClassroomComponent implements OnInit {
 
   private updateClassroom(id, classroom) {
     this.classroomService.updateClassRoom(id, classroom).subscribe(res => {
-      this.pick = [];
       this.opened = false;
       this.newClassroom.emit();
     }, err => console.error(err));
   }
 
-  getClassroomById(id) {
-    this.classroomService.getClassRoomById(id).subscribe(res => this.classroomForm.patchValue(res), err => console.error(err));
+  private getClassroomById(id) {
+    this.classroomService.getClassRoomById(id).subscribe(res => {
+      const classroom: any = Object.assign({}, res);
+      classroom.buildingId = res.building.id;
+      this.classroomForm.patchValue(classroom);
+    }, err => console.error(err));
   }
 
-  getBuildings() {
-    this.buildingService.getBuildings().subscribe(res => {
-      this.buildings = res.map(p => {
-        const obj = {name: p.name, id: p.id};
-        return obj;
-      });
-    }, err => console.error(err));
+  private getBuildings() {
+    this.buildingService.getBuildings().subscribe(res => this.buildings = res, err => console.error(err));
   }
 
   private initClassroomForm() {
     return new FormGroup({
-      name: new FormControl(null, Validators.required)
+      name: new FormControl(null, Validators.required),
+      buildingId: new FormControl(null, Validators.required)
     });
-  }
-  get pickLabel() {
-    return this.pick.name || 'Select an option';
   }
 
   get name() { return this.classroomForm.get('name'); }
+  get buildingId() { return this.classroomForm.get('buildingId'); }
+
 }

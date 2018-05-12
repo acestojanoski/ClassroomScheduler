@@ -31,6 +31,9 @@
       ],
       "validators/*": [
         "app/validators/*"
+      ],
+      "guards/*": [
+        "app/guards/*"
       ]
     }
   }

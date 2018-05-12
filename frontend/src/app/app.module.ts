@@ -1,14 +1,20 @@
 // core libraries
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 // external libraries
 import { NglModule } from 'ng-lightning/ng-lightning';
+import { CalendarModule } from 'angular-calendar';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 // routing module
 import { AppRoutingModule } from './app-routing.module';
+
+// guards
+import { AuthGuard } from 'guards/auth.guard';
 
 // interceptors
 import { TokenInterceptor } from 'interceptors/token.interceptor';
@@ -34,12 +40,19 @@ import { NavComponent } from './core/nav/nav.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NglModule.forRoot()
+    NglModule.forRoot({
+      svgPath: '../assets/icons'
+    }),
+    CalendarModule.forRoot(),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
+    AuthGuard,
     AuthService,
     BuildingService,
     ClassRoomService,
