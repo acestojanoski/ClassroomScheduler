@@ -78,7 +78,7 @@ export class CreateEventComponent implements OnInit {
     this.eventService.updateEvent(id, event).subscribe(res => {
       this.opened = false;
       this.newEvent.emit();
-    })
+    });
   }
 
   private getEventById(id) {

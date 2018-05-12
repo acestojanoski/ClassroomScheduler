@@ -18,7 +18,7 @@ export class ClassroomLayoutComponent implements OnInit {
     this.getClassrooms();
   }
 
-  private getClassrooms() {
+  public getClassrooms() {
     this.classroomsService.getClassRooms().subscribe(res => {
       this.classrooms = res;
       this.loading = false;

@@ -32,11 +32,11 @@ export class EventLayoutComponent implements OnInit {
 
   @ViewChild('createEvent') createEvent: CreateEventComponent;
   loading = true;
-  view: string = 'month';
+  view = 'month';
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
   events: CalendarEvent[] = [];
-  activeDayIsOpen: boolean = false;
+  activeDayIsOpen = false;
 
   constructor(private eventService: EventService) {}
 
