@@ -34,6 +34,6 @@ namespace ClassroomScheduler.ViewModels
         [Required]
         public int ClassRoomId { get; set; }
 
-        public int CourseId { get; set; }
+        public int? CourseId { get; set; }
     }
 }
