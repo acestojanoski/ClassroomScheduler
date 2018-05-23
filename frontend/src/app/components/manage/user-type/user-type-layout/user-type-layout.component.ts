@@ -22,16 +22,9 @@ export class UserTypeLayoutComponent implements OnInit {
   }
 
   public getUserTypes() {
-<<<<<<< HEAD
-    this.userTypeService.getUserTypes().subscribe(res => {
-      this.userTypes = res;
-      this.loading = false;
-    }, err => console.error(err));
-=======
     this.userTypeService.getUserTypes()
       .finally(() => this.loading = false)
       .subscribe(res => this.userTypes = res, err => console.error(err));
->>>>>>> fdb0abd760e9dca40d5e5de26ebba0fdb6ffd387
   }
 
 }
