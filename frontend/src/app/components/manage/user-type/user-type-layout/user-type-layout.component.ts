@@ -17,7 +17,7 @@ export class UserTypeLayoutComponent implements OnInit {
     this.getUserTypes();
   }
 
-  private getUserTypes() {
+  public getUserTypes() {
     this.userTypeService.getUserTypes().subscribe(res => {
       this.userTypes = res;
       this.loading = false;

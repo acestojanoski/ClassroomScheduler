@@ -76,7 +76,7 @@ namespace ClassroomScheduler.Controllers
         [HttpPost]
         [Authorize]
         [Route("ChangePassword")]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace ClassroomScheduler.Controllers
                 return BadRequest("Could not find user!");
             }
 
-            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
             if (changePasswordResult.Succeeded)
             {
                 return Ok(changePasswordResult);

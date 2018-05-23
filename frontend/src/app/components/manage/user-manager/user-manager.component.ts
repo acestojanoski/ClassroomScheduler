@@ -3,7 +3,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserType} from 'models/user-type.model';
 import {UserTypeService} from 'services/user-type.service';
 import {UserService} from 'services/user.service';
-import {ManageService} from 'services/manage.service';
 
 @Component({
   selector: 'crs-user-manager',
@@ -18,7 +17,6 @@ export class UserManagerComponent implements OnInit {
 
   constructor(
     private userTypeService: UserTypeService,
-    private manageService: ManageService,
     private userService: UserService
   ) { }
 
@@ -32,7 +30,7 @@ export class UserManagerComponent implements OnInit {
   submit() {
     if (this.manageForm.invalid) { return; }
 
-    this.manageService.updateUser(this.manageForm.value).subscribe(res => {
+    this.userService.updateUser(this.manageForm.value).subscribe(res => {
       this.errors = null;
     }, err => {
       this.errors = err.error.errors ? err.error.errors.map(error => error.description) : err.error.Password;
@@ -49,7 +47,6 @@ export class UserManagerComponent implements OnInit {
 
   private setFormFields() {
     this.userService.getUser().subscribe(res =>{
-      console.log(res.userName,res);
       this.manageForm.setValue({
         'userName': res.userName,
         'firstName': res.firstName,

@@ -28,7 +28,6 @@ import { EventTypeService } from 'services/event-type.service';
 import { EventService } from 'services/event.service';
 import { UserTypeService } from 'services/user-type.service';
 import { UserService } from 'services/user.service';
-import {ManageService} from 'services/manage.service';
 
 // components
 import { AppComponent } from './app.component';
@@ -67,8 +66,7 @@ import { ManageComponent } from './components/manage/manage.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    },
-    ManageService
+    }
   ],
   bootstrap: [
     AppComponent
