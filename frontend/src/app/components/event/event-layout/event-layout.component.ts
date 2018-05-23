@@ -1,11 +1,12 @@
-import {  Component, ChangeDetectionStrategy, ViewChild,  OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewChild, OnInit } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/finally';
+
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 
 import { EventService } from 'services/event.service';
-
 import { CreateEventComponent } from '../create-event/create-event.component';
 
 const colors: any = {
@@ -67,12 +68,13 @@ export class EventLayoutComponent implements OnInit {
     this.eventService.getEvents()
       .finally(() => this.loading = false)
       .subscribe(res => {
+        // TODO: FIX +/- 2 HOURS
         this.events = res.map(ev => {
           const event: CalendarEvent = {
             id: ev.id,
             start: new Date(ev.startTime),
             end: new Date(ev.endTime),
-            title: `${ev.description} (${ev.eventType.name}) # Room: ${ev.classRoom.name} # Course: ${ev.course.name}`
+            title: `${ev.description} (${ev.eventType.name}) # Room: ${ev.classRoom.name} ${ev.course ? '#Course: ' + ev.course.name : ''}`
           };
           return event;
         });

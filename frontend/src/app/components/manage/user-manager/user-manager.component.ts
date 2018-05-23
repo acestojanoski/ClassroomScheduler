@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserType} from 'models/user-type.model';
-import {UserTypeService} from 'services/user-type.service';
-import {UserService} from 'services/user.service';
-import {ManageService} from 'services/manage.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { UserType } from 'models/user-type.model';
+import { UserTypeService } from 'services/user-type.service';
+import { UserService } from 'services/user.service';
+import { ManageService } from 'services/manage.service';
 
 @Component({
   selector: 'crs-user-manager',
@@ -25,8 +26,7 @@ export class UserManagerComponent implements OnInit {
   ngOnInit() {
     this.manageForm = this.initManageForm();
     this.getUserTypes();
-    this.setFormFields();
-
+    this.getUser();
   }
 
   submit() {
@@ -43,21 +43,15 @@ export class UserManagerComponent implements OnInit {
     this.manageForm.reset();
   }
 
-  getUserTypes() {
+  public getUserTypes() {
     this.userTypeService.getUserTypes().subscribe(userTypes => this.userTypes = userTypes, err => console.error(err));
   }
 
-  private setFormFields() {
-    this.userService.getUser().subscribe(res =>{
-      console.log(res.userName,res);
-      this.manageForm.setValue({
-        'userName': res.userName,
-        'firstName': res.firstName,
-        'lastName': res.lastName,
-        'email': res.email,
-        'userTypeId': res.userType
-      })
-    }, err => console.error(err))
+  private getUser() {
+    this.userService.getUser().subscribe(res => {
+      this.manageForm.patchValue(res);
+      // TODO: FIX USERTYPE
+    }, err => console.error(err));
   }
 
   private initManageForm(): FormGroup {
