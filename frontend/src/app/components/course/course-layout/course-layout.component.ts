@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import 'rxjs/add/operator/finally';
+
 import { CourseService } from 'services/course.service';
 import { Course } from 'models/course.model';
 
@@ -26,10 +28,9 @@ export class CourseLayoutComponent implements OnInit {
   }
 
   public getCourses() {
-    this.courseService.getCourses().subscribe(res => {
-      this.courses = res;
-      this.loading = false;
-    }, err => console.error(err));
+    this.courseService.getCourses()
+      .finally(() => this.loading = false)
+      .subscribe(res => this.courses = res, err => console.error(err));
   }
 
 }

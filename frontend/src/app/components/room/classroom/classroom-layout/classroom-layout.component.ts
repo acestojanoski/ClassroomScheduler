@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ClassRoomService} from 'services/class-room.service';
-import {ClassRoom} from 'models/class-room.model';
+
+import 'rxjs/add/operator/finally';
+
+import { ClassRoomService } from 'services/class-room.service';
+import { ClassRoom } from 'models/class-room.model';
 
 @Component({
   selector: 'crs-classroom-layout',
@@ -19,11 +22,9 @@ export class ClassroomLayoutComponent implements OnInit {
   }
 
   public getClassrooms() {
-    this.classroomsService.getClassRooms().subscribe(res => {
-      this.classrooms = res;
-      this.loading = false;
-      console.log(this.classrooms);
-    }, err => console.error(err));
+    this.classroomsService.getClassRooms()
+      .finally(() => this.loading = false)
+      .subscribe(res => this.classrooms = res, err => console.error(err));
   }
 
 }

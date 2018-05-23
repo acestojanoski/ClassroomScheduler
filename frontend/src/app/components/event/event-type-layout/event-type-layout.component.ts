@@ -18,16 +18,13 @@ export class EventTypeLayoutComponent implements OnInit {
   constructor(private eventTypeService: EventTypeService) { }
 
   ngOnInit() {
-    console.log(this.loading);
     this.getEventTypes();
   }
 
   public getEventTypes() {
     this.eventTypeService.getEventTypes()
       .finally(() => this.loading = false)
-      .subscribe(res => {
-        this.eventTypes = res;
-    });
+      .subscribe(res => this.eventTypes = res, err => console.error(err));
   }
 
 }

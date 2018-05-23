@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import 'rxjs/add/operator/finally';
+
 import { Building } from 'models/building.model';
 import { BuildingService } from 'services/building.service';
 
@@ -20,10 +22,9 @@ export class BuildingLayoutComponent implements OnInit {
   }
 
   public getBuildings() {
-    this.buildingService.getBuildings().subscribe(res => {
-      this.buildings = res;
-      this.loading = false;
-    }, err => console.error(err));
+    this.buildingService.getBuildings()
+      .finally(() => this.loading = false)
+      .subscribe(res => this.buildings = res, err => console.error(err));
   }
 
 }
