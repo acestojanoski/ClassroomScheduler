@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
       email: new FormControl(null, { validators: [Validators.required, Validators.email] }),
       password: new FormControl(null, Validators.required),
       confirmPassword: new FormControl(null, Validators.required),
-      userType: new FormControl(null, Validators.required)
+      userTypeId: new FormControl(null, Validators.required)
     }, { validators: PasswordValidator.matchPassword });
   }
 
@@ -65,5 +65,5 @@ export class RegisterComponent implements OnInit {
   get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
-  get userTypeName() { return this.registerForm.get('userType'); }
+  get userTypeId() { return this.registerForm.get('userTypeId'); }
 }

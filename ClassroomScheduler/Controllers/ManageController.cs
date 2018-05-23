@@ -27,6 +27,7 @@ namespace ClassroomScheduler.Controllers
         // GET: Logged User
         [HttpGet]
         [Authorize]
+        [Route("LoggedUser")]
         public async Task<IActionResult> LoggedUser()
         {
             var userName = HttpContext.User.Claims.FirstOrDefault().Value;
@@ -60,6 +61,8 @@ namespace ClassroomScheduler.Controllers
             user.UserName = model.UserName;
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
+            user.UserType = _context.UserTypes.Where(ut => ut.Id == model.UserTypeId).First();
+
 
             IdentityResult result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)

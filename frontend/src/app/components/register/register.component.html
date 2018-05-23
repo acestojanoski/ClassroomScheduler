@@ -38,9 +38,9 @@
         <input nglFormControl type="text" placeholder="My input" [required]="confirmPassword.errors?.required" formControlName="confirmPassword">
       </ngl-form-element>
 
-      <fieldset ngl-form-group label="Type" [required]="userTypeName.errors?.required" class="slds-m-top--small">
+      <fieldset ngl-form-group label="Type" [required]="userTypeId.errors?.required" class="slds-m-top--small">
         <ngl-form-group-element *ngFor="let userType of userTypes" [label]="userType.name">
-          <input nglFormControl type="radio" [value]="userType.name" formControlName="userType" />
+          <input nglFormControl type="radio" [value]="userType.id" formControlName="userTypeId" />
         </ngl-form-group-element>
       </fieldset>
 

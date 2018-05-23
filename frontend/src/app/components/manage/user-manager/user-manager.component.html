@@ -1,0 +1,55 @@
+<article class="slds-card">
+  <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-standard-contact" title="user-manager">
+          <svg class="slds-icon slds-icon_small" aria-hidden="true">
+          </svg>
+        </span>
+      </div>
+      <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+          <span class="slds-text-heading_small">User manager</span>
+        </h2>
+      </div>
+    </header>
+  </div>
+  <div class="slds-card__body slds-card__body_inner">
+    <form [formGroup]="manageForm">
+
+      <ngl-form-element label="Username">
+        <input nglFormControl type="text" placeholder="My input" [required]="userName.errors?.required"
+               formControlName="userName">
+      </ngl-form-element>
+
+      <ngl-form-element label="Firstname" class="slds-m-top--small">
+        <input nglFormControl type="text" placeholder="My input" [required]="firstName.errors?.required"
+               formControlName="firstName">
+      </ngl-form-element>
+
+      <ngl-form-element label="Lastname" class="slds-m-top--small">
+        <input nglFormControl type="text" placeholder="My input" [required]="lastName.errors?.required"
+               formControlName="lastName">
+      </ngl-form-element>
+
+      <ngl-form-element label="Email" class="slds-m-top--small"
+                        [error]="email.errors?.email ? 'Email is not valid' : null">
+        <input nglFormControl type="text" placeholder="My input" [required]="email.errors?.required"
+               formControlName="email">
+      </ngl-form-element>
+
+      <fieldset ngl-form-group label="Type" [required]="userTypeId.errors?.required" class="slds-m-top--small">
+        <ngl-form-group-element *ngFor="let userType of userTypes" [label]="userType.name">
+          <input nglFormControl type="radio" [value]="userType.id" formControlName="userTypeId"/>
+        </ngl-form-group-element>
+      </fieldset>
+
+      <div class="slds-m-top--small">
+        <button type="button" nglButton="success" (click)="submit()" [disabled]="manageForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+
+</article>
+
+<crs-create-user-type #createUserType (newUserType)="getUserTypes()"></crs-create-user-type>
