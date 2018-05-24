@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'services/auth.service';
 
@@ -7,10 +7,16 @@ import { AuthService } from 'services/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  public loggedIn: boolean;
 
   constructor(private auth: AuthService) {
     auth.validateToken();
+  }
+
+  ngOnInit() {
+    this.auth.user.subscribe(res => this.loggedIn = !!res);
   }
 
 }

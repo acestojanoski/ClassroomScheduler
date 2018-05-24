@@ -1,4 +1,4 @@
-<crs-nav></crs-nav>
-<div class="slds-grid page-wrapper">
+<crs-nav *ngIf="loggedIn"></crs-nav>
+<div class="slds-grid page-wrapper" [ngClass]="{'slds-grid_vertical-align-center': !loggedIn}" [ngStyle]="{'padding-top': loggedIn ? '3.125rem' : 0}">
     <router-outlet></router-outlet>
 </div>

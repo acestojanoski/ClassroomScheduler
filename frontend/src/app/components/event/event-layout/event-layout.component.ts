@@ -8,6 +8,7 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } fr
 
 import { EventService } from 'services/event.service';
 import { CreateEventComponent } from '../create-event/create-event.component';
+import { AuthService } from 'services/auth.service';
 
 const colors: any = {
   red: {
@@ -38,10 +39,15 @@ export class EventLayoutComponent implements OnInit {
   refresh: Subject<any> = new Subject();
   events: CalendarEvent[] = [];
   activeDayIsOpen = false;
+  public loggedIn: boolean;
 
-  constructor(private eventService: EventService) {}
+  constructor(
+    private eventService: EventService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit() {
+    this.auth.user.subscribe(res => this.loggedIn = !!res);
     this.getEvents();
   }
 
@@ -60,7 +66,9 @@ export class EventLayoutComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.createEvent.open(event.id);
+    if (this.loggedIn) {
+      this.createEvent.open(event.id);
+    }
   }
 
   public getEvents() {

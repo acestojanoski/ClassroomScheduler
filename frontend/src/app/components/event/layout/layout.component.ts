@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from 'services/auth.service';
+
 @Component({
   selector: 'crs-layout',
   templateUrl: './layout.component.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  public loggedIn: boolean;
+
+  constructor(private auth: AuthService) { }
 
   ngOnInit() {
+    this.auth.user.subscribe(res => this.loggedIn = !!res);
   }
 
 }
