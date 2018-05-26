@@ -47,8 +47,8 @@ export class UserManagerComponent implements OnInit {
 
   private getUser() {
     this.userService.getUser().subscribe(res => {
+      res.userTypeId = res.userType.id;
       this.manageForm.patchValue(res);
-      // TODO: FIX USERTYPE
     }, err => console.error(err));
   }
 
