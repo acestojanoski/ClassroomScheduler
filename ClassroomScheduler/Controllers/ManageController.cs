@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClassroomScheduler.Controllers
 {
@@ -32,7 +33,8 @@ namespace ClassroomScheduler.Controllers
         {
             var userName = HttpContext.User.Claims.FirstOrDefault().Value;
 
-            var user = await _userManager.FindByNameAsync(userName);
+            var user = _userManager.Users.Include(u => u.UserType)
+                .FirstOrDefault(un => un.UserName.Equals(userName));
 
             if (user == null)
             {
