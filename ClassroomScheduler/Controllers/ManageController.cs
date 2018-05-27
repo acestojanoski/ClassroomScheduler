@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClassroomScheduler.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/ManageUser")]
     public class ManageController : Controller
@@ -27,7 +28,6 @@ namespace ClassroomScheduler.Controllers
 
         // GET: Logged User
         [HttpGet]
-        [Authorize]
         [Route("LoggedUser")]
         public async Task<IActionResult> LoggedUser()
         {
@@ -46,7 +46,6 @@ namespace ClassroomScheduler.Controllers
 
         // PUT: Update user
         [HttpPut]
-        [Authorize]
         [Route("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] EditUserViewModel model)
         {
@@ -76,7 +75,6 @@ namespace ClassroomScheduler.Controllers
 
         // Change password
         [HttpPost]
-        [Authorize]
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
         {
@@ -103,7 +101,6 @@ namespace ClassroomScheduler.Controllers
 
         // POST: Delete user
         [HttpPost]
-        [Authorize]
         [Route("DeleteUser")]
         public async Task<IActionResult> DeleteUser(DeleteUserViewModel model)
         {

@@ -9,9 +9,11 @@ using ClassroomScheduler.Models;
 using ClassroomScheduler.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Extensions.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClassroomScheduler.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Courses")]
     public class CoursesController : Controller

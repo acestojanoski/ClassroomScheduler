@@ -22,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClassroomScheduler.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Authentication")]
     public class AuthenticationController : Controller
@@ -76,6 +77,7 @@ namespace ClassroomScheduler.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("Login")]
         public async Task<IActionResult> CreateToken([FromBody]LoginViewModel vm)
         {
@@ -184,23 +186,6 @@ namespace ClassroomScheduler.Controllers
                 return Ok(result);
             }
             return BadRequest(result);
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("LoggedUser")]
-        public async Task<IActionResult> LoggedUser()
-        {
-            var userName = HttpContext.User.Claims.FirstOrDefault().Value;
-
-            var user = await _userManager.FindByNameAsync(userName);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
         }
 
         [HttpGet]

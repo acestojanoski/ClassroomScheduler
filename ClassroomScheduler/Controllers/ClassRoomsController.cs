@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClassroomScheduler.Models;
 using ClassroomScheduler.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClassroomScheduler.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/ClassRooms")]
     public class ClassRoomsController : Controller

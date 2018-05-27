@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ClassroomScheduler.Controllers
 {
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Events")]
     public class EventsController : Controller
@@ -27,6 +28,7 @@ namespace ClassroomScheduler.Controllers
 
         // GET: api/Events
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Event> GetEvents()
         {
             return _context.Events.Include(e => e.EventType)
@@ -57,7 +59,6 @@ namespace ClassroomScheduler.Controllers
         }
 
         // PUT: api/Events/5
-        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent([FromRoute] int id, [FromBody] EventViewModel model)
         {
@@ -79,11 +80,6 @@ namespace ClassroomScheduler.Controllers
             {
                 Id = id,
                 Description = model.Description,
-                StartTime = model.StartTime,
-                EndTime = model.EndTime,
-                Repeat = model.Repeat,
-                RepeatTimes = model.RepeatTimes,
-                RepeatInterval = model.RepeatInterval,
                 EventType = _context.EventTypes.Where(e => e.Id == model.EventTypeId).First(),
                 ClassRoom = _context.ClassRooms.Where(cr => cr.Id == model.ClassRoomId).First(),
                 Course = _context.Courses.Where(c => c.Id == model.CourseId).FirstOrDefault(),
@@ -113,7 +109,6 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/Events
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> PostEvent([FromBody] EventViewModel model)
         {
             if (!ModelState.IsValid)
@@ -133,11 +128,6 @@ namespace ClassroomScheduler.Controllers
             var @event = new Event
             { 
                 Description = model.Description,
-                StartTime = model.StartTime,
-                EndTime = model.EndTime,
-                Repeat = model.Repeat,
-                RepeatTimes = model.RepeatTimes,
-                RepeatInterval = model.RepeatInterval,
                 EventType = _context.EventTypes.Where(e => e.Id == model.EventTypeId).First(),
                 ClassRoom = _context.ClassRooms.Where(cr => cr.Id == model.ClassRoomId).First(),
                 Course = _context.Courses.Where(c => c.Id == model.CourseId).FirstOrDefault(),

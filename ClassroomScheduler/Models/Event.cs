@@ -11,20 +11,7 @@ namespace ClassroomScheduler.Models
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
-        public DateTime StartTime { get; set; }
-
-        [Required]
-        public DateTime EndTime { get; set; }
-
-        [Required]
-        public bool Repeat { get; set; }
-
-        public int? RepeatTimes { get; set; }
-
-        public string RepeatInterval { get; set; }
-
+        
         [Required]
         public EventType EventType { get; set; }
 
@@ -37,5 +24,7 @@ namespace ClassroomScheduler.Models
 
         [Required]
         public ApplicationUser CreatedBy { get; set; }
+
+        public List<EventRepetition> EventRepetitions { get; set; }
     }
 }
