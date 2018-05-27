@@ -42,5 +42,6 @@ namespace ClassroomScheduler.Models
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<ApplicationUser> Professors { get; set; }
         public DbSet<ProfessorCourse> ProfessorCourses { get; set; }
+        public DbSet<EventRepetition> EventRepetitions { get; set; }
     }
 }

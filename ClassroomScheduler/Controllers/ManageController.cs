@@ -33,8 +33,8 @@ namespace ClassroomScheduler.Controllers
         {
             var userName = HttpContext.User.Claims.FirstOrDefault().Value;
 
-            var user = _userManager.Users.Include(u => u.UserType)
-                .FirstOrDefault(un => un.UserName.Equals(userName));
+            var user = await _userManager.Users.Include(u => u.UserType)
+                .FirstOrDefaultAsync(un => un.UserName.Equals(userName));
 
             if (user == null)
             {
