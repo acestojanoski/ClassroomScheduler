@@ -13,4 +13,5 @@ export interface Event {
   eventType: EventType;
   course: Course;
   classRoom: ClassRoom;
+  eventRepetitions: any;
 }

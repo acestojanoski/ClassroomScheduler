@@ -77,14 +77,17 @@ export class EventLayoutComponent implements OnInit {
       .finally(() => this.loading = false)
       .subscribe(res => {
         // TODO: FIX +/- 2 HOURS
-        this.events = res.map(ev => {
-          const event: CalendarEvent = {
-            id: ev.id,
-            start: new Date(ev.startTime),
-            end: new Date(ev.endTime),
-            title: `${ev.description} (${ev.eventType.name}) # Room: ${ev.classRoom.name} ${ev.course ? '#Course: ' + ev.course.name : ''}`
-          };
-          return event;
+        res.forEach(ev => {
+          const newEvents = ev.eventRepetitions.map(evRep => {
+            const event: CalendarEvent = {
+              id: ev.id,
+              start: new Date(evRep.startTime),
+              end: new Date(evRep.endTime),
+              title: `${ev.description} (${ev.eventType.name}) # Room: ${ev.classRoom.name} ${ev.course ? '#Course: ' + ev.course.name : ''}`
+            };
+            return event;
+          });
+          this.events = this.events.concat(newEvents)
         });
         this.refresh.next();
     }, err => console.error(err));

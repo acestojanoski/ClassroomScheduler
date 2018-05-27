@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.initLoginForm();
   }
 
+  @HostListener('document:keydown.enter')
   submit() {
     if (this.loginForm.invalid) { return; }
 

@@ -45,7 +45,7 @@ export class AuthService {
   public destroySession() {
     this.user.next(null);
     localStorage.clear();
-    this.router.navigate(['login']);
+    this.router.navigate(['events']);
   }
 
 }

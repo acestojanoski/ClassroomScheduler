@@ -84,4 +84,4 @@
   </div>
 </article>
 
-<crs-create-event #createEvent (newEvent)="getEvents()"></crs-create-event>
+<crs-create-event *ngIf="loggedIn" #createEvent (newEvent)="getEvents()"></crs-create-event>
