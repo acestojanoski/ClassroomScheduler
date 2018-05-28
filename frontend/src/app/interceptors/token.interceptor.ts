@@ -15,7 +15,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!request.url.includes('Authentication')) {
+    if (!request.url.includes('Authentication') || request.url.includes('Authentication/Register')) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${this.auth.getToken()}`

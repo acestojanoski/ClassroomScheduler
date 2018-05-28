@@ -15,6 +15,12 @@
     </header>
   </div>
   <div class="slds-card__body slds-card__body_inner">
+    <ngl-notification *ngIf="errors && errors.length > 0" type="alert" severity="error" class="slds-theme--alert-texture">
+      <h2 *ngFor="let error of errors">{{error}}</h2>
+    </ngl-notification>
+    <ngl-notification *ngIf="success" type="alert" severity="success" class="slds-theme--alert-texture">
+      <h2>The user has been updated</h2>
+    </ngl-notification>
     <form [formGroup]="manageForm">
 
       <ngl-form-element label="Username">

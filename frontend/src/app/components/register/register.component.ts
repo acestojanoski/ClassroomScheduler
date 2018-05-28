@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public userTypes: UserType[];
   public errors: string[];
+  public success;
 
   constructor(
     private userTypeService: UserTypeService,
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
 
     this.userService.register(this.registerForm.value).subscribe(res => {
       this.errors = null;
+      this.success = true;
     }, err => {
       this.errors = err.error.errors ? err.error.errors.map(error => error.description) : err.error.Password;
     });
