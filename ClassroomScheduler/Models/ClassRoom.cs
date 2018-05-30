@@ -17,5 +17,7 @@ namespace ClassroomScheduler.Models
 
         [Required]
         public Building Building { get; set; }
+
+        public List<Event> Events { get; set; }
     }
 }

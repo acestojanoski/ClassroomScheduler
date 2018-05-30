@@ -15,5 +15,7 @@ namespace ClassroomScheduler.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
+        public List<Event> Events { get; set; }
+
     }
 }

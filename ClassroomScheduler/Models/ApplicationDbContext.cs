@@ -19,6 +19,23 @@ namespace ClassroomScheduler.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            // One-To-Many relations
+            modelBuilder.Entity<Building>()
+                .HasMany(cr => cr.ClassRooms)
+                .WithOne(b => b.Building)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<EventType>()
+                .HasMany(e => e.Events)
+                .WithOne(et => et.EventType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ClassRoom>()
+                .HasMany(e => e.Events)
+                .WithOne(cr => cr.ClassRoom)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Many-To-Many relations
             modelBuilder.Entity<ProfessorCourse>()
                 .HasKey(pc => new { pc.ProfessorId, pc.CourseId });
 

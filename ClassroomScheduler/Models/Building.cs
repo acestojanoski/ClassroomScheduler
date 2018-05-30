@@ -14,5 +14,7 @@ namespace ClassroomScheduler.Models
         [Required]
         [MaxLength(100)]
         public string Name { get; set; }
+
+        public List<ClassRoom> ClassRooms { get; set; }
     }
 }

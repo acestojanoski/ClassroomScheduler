@@ -57,7 +57,7 @@ namespace ClassroomScheduler.Controllers
         }
 
         // PUT: api/Events/5/Repetition/5
-        [HttpPut("{id}/Repetition/{id}")]
+        [HttpPut("{id}/Repetition/{EventRepetitionId}")]
         public async Task<IActionResult> PutEvent([FromRoute] int id, [FromRoute] int EventRepetitionId, [FromBody] EventEditViewModel model)
         {
             if (!ModelState.IsValid)
