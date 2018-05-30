@@ -12,6 +12,7 @@ export class PasswordManagerComponent implements OnInit {
 
   public passwordForm: FormGroup;
   public errors: string[];
+  public success;
 
   constructor(private userService: UserService) { }
 
@@ -24,6 +25,7 @@ export class PasswordManagerComponent implements OnInit {
 
     this.userService.changePassword(this.passwordForm.value).subscribe(res => {
       this.errors = null;
+      this.success = true;
     }, err => {
       this.errors = err.error.errors ? err.error.errors.map(error => error.description) : err.error.Password;
     });

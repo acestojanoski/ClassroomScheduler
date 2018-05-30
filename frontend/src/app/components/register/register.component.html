@@ -12,6 +12,9 @@
     <ngl-notification *ngIf="errors && errors.length > 0" type="alert" severity="error" class="slds-theme--alert-texture">
       <h2 *ngFor="let error of errors">{{error}}</h2>
     </ngl-notification>
+    <ngl-notification *ngIf="success" type="alert" severity="success" class="slds-theme--alert-texture">
+      <h2>The user has been registered</h2>
+    </ngl-notification>
     <form [formGroup]="registerForm">
 
       <ngl-form-element label="Username">

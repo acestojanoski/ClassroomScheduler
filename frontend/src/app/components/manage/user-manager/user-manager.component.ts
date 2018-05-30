@@ -15,6 +15,7 @@ export class UserManagerComponent implements OnInit {
   public manageForm: FormGroup;
   public userTypes: UserType[];
   public errors: string[];
+  public success;
 
   constructor(
     private userTypeService: UserTypeService,
@@ -32,6 +33,7 @@ export class UserManagerComponent implements OnInit {
 
     this.userService.updateUser(this.manageForm.value).subscribe(res => {
       this.errors = null;
+      this.success = true;
     }, err => {
       this.errors = err.error.errors ? err.error.errors.map(error => error.description) : err.error.Password;
     });

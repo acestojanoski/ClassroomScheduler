@@ -2,12 +2,14 @@
   <div body>
     <form [formGroup]="eventTypeForm">
       <ngl-form-element label="Name">
-        <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required" formControlName="name">
+        <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required"
+               formControlName="name">
       </ngl-form-element>
     </form>
   </div>
   <ng-template ngl-modal-footer>
-    <button type="button" nglButton="success" (click)="submit()" >Submit</button>
+    <button type="button" *ngIf="editing" nglButton="destructive" (click)="deleteEventType()">Delete event type</button>
+    <button type="button" nglButton="success" (click)="submit()">Submit</button>
     <button type="button" nglButton="neutral" (click)="opened = false">Close</button>
   </ng-template>
 </ngl-modal>

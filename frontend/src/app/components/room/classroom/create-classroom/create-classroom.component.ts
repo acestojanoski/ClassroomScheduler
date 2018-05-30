@@ -1,10 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import { ClassRoomService } from 'services/class-room.service';
-import { BuildingService } from 'services/building.service';
+import {ClassRoomService} from 'services/class-room.service';
+import {BuildingService} from 'services/building.service';
 
-import { Building } from 'models/building.model';
+import {Building} from 'models/building.model';
 
 @Component({
   selector: 'crs-create-classroom',
@@ -18,11 +18,11 @@ export class CreateClassroomComponent implements OnInit {
   public opened = false;
   public classroomId: number;
   public buildings: Building[] = [];
+  public editing = false;
 
-  constructor(
-    private classroomService: ClassRoomService,
-    private buildingService: BuildingService
-  ) { }
+  constructor(private classroomService: ClassRoomService,
+              private buildingService: BuildingService) {
+  }
 
   ngOnInit() {
     this.classroomForm = this.initClassroomForm();
@@ -33,13 +33,17 @@ export class CreateClassroomComponent implements OnInit {
     this.classroomId = classroomId;
     this.opened = true;
     this.classroomForm.reset();
+    this.editing = false;
     if (this.classroomId) {
       this.getClassroomById(this.classroomId);
+      this.editing = true;
     }
   }
 
   public submit() {
-    if (this.classroomForm.invalid) { return; }
+    if (this.classroomForm.invalid) {
+      return;
+    }
 
     const classroom = Object.assign({}, this.classroomForm.value);
 
@@ -64,6 +68,16 @@ export class CreateClassroomComponent implements OnInit {
     }, err => console.error(err));
   }
 
+  private deleteClassroom() {
+    this.classroomService.deleteClassRoom(this.classroomId).subscribe(res => {
+      console.log(res);
+      this.opened = false;
+    }, err => {
+      // this.error = true;
+      console.error(err);
+    });
+  }
+
   private getClassroomById(id) {
     this.classroomService.getClassRoomById(id).subscribe(res => {
       const classroom: any = Object.assign({}, res);
@@ -83,7 +97,12 @@ export class CreateClassroomComponent implements OnInit {
     });
   }
 
-  get name() { return this.classroomForm.get('name'); }
-  get buildingId() { return this.classroomForm.get('buildingId'); }
+  get name() {
+    return this.classroomForm.get('name');
+  }
+
+  get buildingId() {
+    return this.classroomForm.get('buildingId');
+  }
 
 }

@@ -77,6 +77,7 @@ export class EventLayoutComponent implements OnInit {
       .finally(() => this.loading = false)
       .subscribe(res => {
         // TODO: FIX +/- 2 HOURS
+        this.events = [];
         res.forEach(ev => {
           const newEvents = ev.eventRepetitions.map(evRep => {
             const event: CalendarEvent = {
@@ -87,7 +88,7 @@ export class EventLayoutComponent implements OnInit {
             };
             return event;
           });
-          this.events = this.events.concat(newEvents)
+          this.events = this.events.concat(newEvents);
         });
         this.refresh.next();
     }, err => console.error(err));

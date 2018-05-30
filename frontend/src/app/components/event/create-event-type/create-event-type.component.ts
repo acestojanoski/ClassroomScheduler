@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormGroup, FormControl, Validators} from '@angular/forms';
 
-import { EventTypeService } from 'services/event-type.service';
+import {EventTypeService} from 'services/event-type.service';
 
 @Component({
   selector: 'crs-create-event-type',
@@ -14,8 +14,10 @@ export class CreateEventTypeComponent implements OnInit {
   public eventTypeForm: FormGroup;
   public opened = false;
   public eventTypeId: number;
+  public editing = false;
 
-  constructor(private eventTypeService: EventTypeService) { }
+  constructor(private eventTypeService: EventTypeService) {
+  }
 
   ngOnInit() {
     this.eventTypeForm = this.initEventTypeForm();
@@ -25,13 +27,17 @@ export class CreateEventTypeComponent implements OnInit {
     this.eventTypeId = eventTypeId;
     this.eventTypeForm.reset();
     this.opened = true;
+    this.editing = false;
     if (this.eventTypeId) {
       this.getEventTypeById(this.eventTypeId);
+      this.editing = true;
     }
   }
 
   public submit() {
-    if (this.eventTypeForm.invalid) { return; }
+    if (this.eventTypeForm.invalid) {
+      return;
+    }
 
     const eventType = Object.assign({}, this.eventTypeForm.value);
 
@@ -56,6 +62,16 @@ export class CreateEventTypeComponent implements OnInit {
     });
   }
 
+  private deleteEventType() {
+    this.eventTypeService.deleteEventType(this.eventTypeId).subscribe(res => {
+      console.log(res);
+      this.opened = false;
+    }, err => {
+      // this.error = true;
+      console.error(err);
+    });
+  }
+
   private getEventTypeById(id) {
     this.eventTypeService.getEventTypeById(id).subscribe(res => this.eventTypeForm.patchValue(res), err => console.error(err));
   }
@@ -66,6 +82,8 @@ export class CreateEventTypeComponent implements OnInit {
     });
   }
 
-  get name() { return this.eventTypeForm.get('name'); }
+  get name() {
+    return this.eventTypeForm.get('name');
+  }
 
 }
