@@ -19,6 +19,8 @@ export class CreateCourseComponent implements OnInit {
   public professors = [];
   public pick = [];
   public picklistOpen = false;
+  public editing = false;
+  public error = false;
 
   constructor(
     private courseService: CourseService,
@@ -33,10 +35,13 @@ export class CreateCourseComponent implements OnInit {
   public open(courseId = null) {
     this.courseId = courseId;
     this.opened = true;
+    this.error = false;
     this.courseForm.reset();
     this.pick = [];
+    this.editing = false;
     if (this.courseId) {
       this.getCourseById(this.courseId);
+      this.editing = true;
     }
   }
 
@@ -65,6 +70,16 @@ export class CreateCourseComponent implements OnInit {
       this.opened = false;
       this.newCourse.emit();
     }, err => console.error(err));
+  }
+
+  private deleteCourse() {
+    this.courseService.deleteCourse(this.courseId).subscribe(res => {
+      console.log(res);
+      this.opened = false;
+    }, err => {
+      this.error = true;
+      console.error(err);
+    });
   }
 
   private getCourseById(id) {

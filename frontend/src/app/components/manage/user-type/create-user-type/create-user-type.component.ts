@@ -13,6 +13,7 @@ export class CreateUserTypeComponent implements OnInit {
   public userTypeForm: FormGroup;
   public opened = false;
   public userTypeId: number;
+  public editing = false;
 
 
   constructor(private userTypeService: UserTypeService) {
@@ -26,8 +27,10 @@ export class CreateUserTypeComponent implements OnInit {
     this.userTypeId = userTypeId;
     this.userTypeForm.reset();
     this.opened = true;
+    this.editing = false;
     if (this.userTypeId) {
       this.getUserTypeById(this.userTypeId);
+      this.editing = true;
     }
   }
 
@@ -57,6 +60,16 @@ export class CreateUserTypeComponent implements OnInit {
       this.opened = false;
       this.newUserType.emit();
     }, err => console.error(err));
+  }
+
+  private deleteUserType() {
+    this.userTypeService.deleteUserType(this.userTypeId).subscribe(res => {
+      console.log(res);
+      this.opened = false;
+    }, err => {
+      // this.error = true;
+      console.error(err);
+    });
   }
 
   getUserTypeById(id) {

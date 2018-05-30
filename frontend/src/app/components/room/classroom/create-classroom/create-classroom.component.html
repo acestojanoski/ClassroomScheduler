@@ -1,13 +1,14 @@
 <ngl-modal [(open)]="opened">
   <div body>
     <form [formGroup]="classroomForm">
-
       <ngl-form-element label="Name">
-        <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required" formControlName="name">
+        <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required"
+               formControlName="name">
       </ngl-form-element>
 
       <ngl-form-element label="Building" class="slds-m-top--small">
-        <select nglFormControl class="slds-select" formControlName="buildingId" [required]="buildingId.errors?.required">
+        <select nglFormControl class="slds-select" formControlName="buildingId"
+                [required]="buildingId.errors?.required">
           <option *ngFor="let building of buildings" [ngValue]="building?.id">{{ building?.name }}</option>
         </select>
       </ngl-form-element>
@@ -15,7 +16,8 @@
     </form>
   </div>
   <ng-template ngl-modal-footer>
-    <button type="button" nglButton="success" (click)="submit()" >Submit</button>
+    <button type="button" *ngIf="editing" nglButton="destructive" (click)="deleteClassroom()">Delete classroom</button>
+    <button type="button" nglButton="success" (click)="submit()">Submit</button>
     <button type="button" nglButton="neutral" (click)="opened = false">Close</button>
   </ng-template>
 </ngl-modal>

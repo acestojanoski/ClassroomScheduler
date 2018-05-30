@@ -13,7 +13,7 @@ export class CreateBuildingComponent implements OnInit {
   public buildingForm: FormGroup;
   public opened = false;
   public buildingId: number;
-
+  public editing = false;
 
   constructor(private buildingService: BuildingService ) { }
 
@@ -25,8 +25,10 @@ export class CreateBuildingComponent implements OnInit {
     this.buildingId = buildingId;
     this.buildingForm.reset();
     this.opened = true;
+    this.editing = false;
     if (this.buildingId) {
       this.getBuildingById(this.buildingId);
+      this.editing = true;
     }
   }
 
@@ -56,10 +58,19 @@ export class CreateBuildingComponent implements OnInit {
     }, err => console.error(err));
   }
 
+  private deleteBuilding() {
+    this.buildingService.deleteBuilding(this.buildingId).subscribe(res => {
+      console.log(res);
+      this.opened = false;
+    }, err => {
+      // this.error = true;
+      console.error(err);
+    });
+  }
+
   getBuildingById(id) {
     this.buildingService.getBuildingById(id).subscribe(res => this.buildingForm.patchValue(res), err => console.error(err));
   }
-
 
   private initBuildingForm() {
     return new FormGroup({
