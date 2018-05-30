@@ -47,6 +47,7 @@ namespace ClassroomScheduler.Controllers
             var @event = await _context.Events.Include(e => e.EventType)
                 .Include(cr => cr.ClassRoom)
                 .Include(c => c.Course)
+                .Include(er => er.EventRepetitions)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             if (@event == null)
@@ -55,9 +56,9 @@ namespace ClassroomScheduler.Controllers
             return Ok(@event);
         }
 
-        // PUT: api/Events/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutEvent([FromRoute] int id, [FromBody] EventViewModel model)
+        // PUT: api/Events/5/Repetition/5
+        [HttpPut("{id}/Repetition/{id}")]
+        public async Task<IActionResult> PutEvent([FromRoute] int id, [FromRoute] int EventRepetitionId, [FromBody] EventEditViewModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -68,7 +69,7 @@ namespace ClassroomScheduler.Controllers
 
             if (user == null)
                 return NotFound();
-
+            
             var @event = new Event
             {
                 Id = id,
@@ -78,6 +79,13 @@ namespace ClassroomScheduler.Controllers
                 Course = _context.Courses.Where(c => c.Id == model.CourseId).FirstOrDefault(),
                 CreatedBy = user
             };
+
+            var eventRepetition = _context.EventRepetitions.Where(e => e.Id == EventRepetitionId).FirstOrDefault();
+            
+            eventRepetition.StartTime = model.StartTime;
+            eventRepetition.EndTime = model.EndTime;
+
+            _context.EventRepetitions.Update(eventRepetition);            
 
             _context.Entry(@event).State = EntityState.Modified;
 
