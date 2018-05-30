@@ -14,5 +14,7 @@ namespace ClassroomScheduler.Models
         [Required]
         [MaxLength(20)]
         public string Name { get; set; }
+
+        public List<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

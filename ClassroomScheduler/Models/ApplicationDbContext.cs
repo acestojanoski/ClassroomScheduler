@@ -35,6 +35,16 @@ namespace ClassroomScheduler.Models
                 .WithOne(cr => cr.ClassRoom)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<UserType>()
+                .HasMany(au => au.ApplicationUsers)
+                .WithOne(ut => ut.UserType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Event>()
+                .HasMany(er => er.EventRepetitions)
+                .WithOne(e => e.Event)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Many-To-Many relations
             modelBuilder.Entity<ProfessorCourse>()
                 .HasKey(pc => new { pc.ProfessorId, pc.CourseId });
