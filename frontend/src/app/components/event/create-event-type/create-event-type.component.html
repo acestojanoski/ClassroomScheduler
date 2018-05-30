@@ -1,6 +1,9 @@
 <ngl-modal [(open)]="opened">
   <div body>
     <form [formGroup]="eventTypeForm">
+      <ngl-notification *ngIf="error" type="alert" severity="error" timeout="2000" class="slds-theme--alert-texture">
+        <h2>The event type is involved in events and cannot be deleted</h2>
+      </ngl-notification>
       <ngl-form-element label="Name">
         <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required"
                formControlName="name">

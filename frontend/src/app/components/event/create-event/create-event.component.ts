@@ -30,6 +30,7 @@ export class CreateEventComponent implements OnInit {
   public eventTypes: EventType[] = [];
   public classRooms: ClassRoom[] = [];
   public courses: Course[] = [];
+  public editing = false;
 
   constructor(
     private eventService: EventService,
@@ -49,8 +50,10 @@ export class CreateEventComponent implements OnInit {
     this.eventId = eventId;
     this.eventForm = this.initEventForm();
     this.opened = true;
+    this.editing = false;
     if (this.eventId) {
       this.getEventById(this.eventId);
+      this.editing = true;
     }
   }
 
@@ -78,6 +81,16 @@ export class CreateEventComponent implements OnInit {
     this.eventService.updateEvent(id, event).subscribe(res => {
       this.opened = false;
       this.newEvent.emit();
+    });
+  }
+
+  private deleteEvent() {
+    this.eventService.deleteEvent(this.eventId).subscribe(res => {
+      console.log(res);
+      this.opened = false;
+      this.newEvent.emit();
+    }, err => {
+      console.error(err);
     });
   }
 

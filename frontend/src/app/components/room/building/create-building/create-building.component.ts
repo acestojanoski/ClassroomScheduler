@@ -14,8 +14,9 @@ export class CreateBuildingComponent implements OnInit {
   public opened = false;
   public buildingId: number;
   public editing = false;
+  public error = false;
 
-  constructor(private buildingService: BuildingService ) { }
+  constructor(private buildingService: BuildingService) { }
 
   ngOnInit() {
     this.buildingForm = this.initBuildingForm();
@@ -26,6 +27,7 @@ export class CreateBuildingComponent implements OnInit {
     this.buildingForm.reset();
     this.opened = true;
     this.editing = false;
+    this.error = false;
     if (this.buildingId) {
       this.getBuildingById(this.buildingId);
       this.editing = true;
@@ -62,8 +64,9 @@ export class CreateBuildingComponent implements OnInit {
     this.buildingService.deleteBuilding(this.buildingId).subscribe(res => {
       console.log(res);
       this.opened = false;
+      this.newBuilding.emit();
     }, err => {
-      // this.error = true;
+      this.error = true;
       console.error(err);
     });
   }

@@ -76,6 +76,7 @@ export class CreateCourseComponent implements OnInit {
     this.courseService.deleteCourse(this.courseId).subscribe(res => {
       console.log(res);
       this.opened = false;
+      this.newCourse.emit();
     }, err => {
       this.error = true;
       console.error(err);

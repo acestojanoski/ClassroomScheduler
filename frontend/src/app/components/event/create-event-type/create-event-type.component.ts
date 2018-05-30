@@ -15,6 +15,7 @@ export class CreateEventTypeComponent implements OnInit {
   public opened = false;
   public eventTypeId: number;
   public editing = false;
+  public error = false;
 
   constructor(private eventTypeService: EventTypeService) {
   }
@@ -28,6 +29,7 @@ export class CreateEventTypeComponent implements OnInit {
     this.eventTypeForm.reset();
     this.opened = true;
     this.editing = false;
+    this.error = false;
     if (this.eventTypeId) {
       this.getEventTypeById(this.eventTypeId);
       this.editing = true;
@@ -66,8 +68,9 @@ export class CreateEventTypeComponent implements OnInit {
     this.eventTypeService.deleteEventType(this.eventTypeId).subscribe(res => {
       console.log(res);
       this.opened = false;
+      this.newEventType.emit();
     }, err => {
-      // this.error = true;
+      this.error = true;
       console.error(err);
     });
   }

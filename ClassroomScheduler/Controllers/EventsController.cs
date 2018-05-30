@@ -56,8 +56,8 @@ namespace ClassroomScheduler.Controllers
             return Ok(@event);
         }
 
-        // PUT: api/Events/5/Repetition/5
-        [HttpPut("{id}/Repetition/{EventRepetitionId}")]
+        // PUT: api/Events/5/Repetitions/5
+        [HttpPut("{id}/Repetitions/{EventRepetitionId}")]
         public async Task<IActionResult> PutEvent([FromRoute] int id, [FromRoute] int EventRepetitionId, [FromBody] EventEditViewModel model)
         {
             if (!ModelState.IsValid)
@@ -194,24 +194,7 @@ namespace ClassroomScheduler.Controllers
 
             return Ok(@event);
         }
-
-        // DELETE: api/Events/Repetition/5
-        [HttpDelete("Repetition/{id}")]
-        public async Task<IActionResult> DeleteRepetition([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var eventRepetition = await _context.EventRepetitions.SingleOrDefaultAsync(m => m.Id == id);
-            if (eventRepetition == null)
-                return NotFound();
-
-            _context.EventRepetitions.Remove(eventRepetition);
-            await _context.SaveChangesAsync();
-
-            return Ok(eventRepetition);
-        }
-
+       
         private bool EventExists(int id)
         {
             return _context.Events.Any(e => e.Id == id);

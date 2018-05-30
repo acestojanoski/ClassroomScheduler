@@ -19,6 +19,7 @@ export class CreateClassroomComponent implements OnInit {
   public classroomId: number;
   public buildings: Building[] = [];
   public editing = false;
+  public error = false;
 
   constructor(private classroomService: ClassRoomService,
               private buildingService: BuildingService) {
@@ -34,6 +35,7 @@ export class CreateClassroomComponent implements OnInit {
     this.opened = true;
     this.classroomForm.reset();
     this.editing = false;
+    this.error = false;
     if (this.classroomId) {
       this.getClassroomById(this.classroomId);
       this.editing = true;
@@ -72,8 +74,9 @@ export class CreateClassroomComponent implements OnInit {
     this.classroomService.deleteClassRoom(this.classroomId).subscribe(res => {
       console.log(res);
       this.opened = false;
+      this.newClassroom.emit();
     }, err => {
-      // this.error = true;
+      this.error = true;
       console.error(err);
     });
   }

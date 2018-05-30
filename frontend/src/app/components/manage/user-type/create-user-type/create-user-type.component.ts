@@ -14,6 +14,7 @@ export class CreateUserTypeComponent implements OnInit {
   public opened = false;
   public userTypeId: number;
   public editing = false;
+  public error = false;
 
 
   constructor(private userTypeService: UserTypeService) {
@@ -28,6 +29,7 @@ export class CreateUserTypeComponent implements OnInit {
     this.userTypeForm.reset();
     this.opened = true;
     this.editing = false;
+    this.error = false;
     if (this.userTypeId) {
       this.getUserTypeById(this.userTypeId);
       this.editing = true;
@@ -66,8 +68,9 @@ export class CreateUserTypeComponent implements OnInit {
     this.userTypeService.deleteUserType(this.userTypeId).subscribe(res => {
       console.log(res);
       this.opened = false;
+      this.newUserType.emit();
     }, err => {
-      // this.error = true;
+      this.error = true;
       console.error(err);
     });
   }
