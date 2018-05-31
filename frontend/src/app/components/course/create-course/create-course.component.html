@@ -5,12 +5,13 @@
         <h2>The course is involved in events and cannot be deleted</h2>
       </ngl-notification>
       <ngl-form-element label="Name">
-        <input nglFormControl type="text" placeholder="My input" [required]="name.errors?.required"
+        <input nglFormControl type="text" placeholder="Name" [required]="name.errors?.required"
                formControlName="name">
       </ngl-form-element>
 
       <ngl-form-element label="Semester" class="slds-m-top--small">
         <select nglFormControl class="slds-select" formControlName="semester" [required]="semester.errors?.required">
+          <option [ngValue]="null">Select semester</option>
           <option *ngFor="let s of semesters" [ngValue]="s">{{ s }}</option>
         </select>
       </ngl-form-element>

@@ -15,11 +15,11 @@
 
     <form [formGroup]="loginForm">
       <ngl-form-element label="Email" class="slds-m-top--small" [error]="email.errors?.email ? 'Email is not valid' : null">
-        <input nglFormControl type="text" placeholder="My input" [required]="email.errors?.required" formControlName="email">
+        <input nglFormControl type="text" placeholder="Email" [required]="email.errors?.required" formControlName="email">
       </ngl-form-element>
 
       <ngl-form-element label="Password" class="slds-m-top--small">
-        <input nglFormControl type="password" placeholder="My input" [required]="password.errors?.required" formControlName="password">
+        <input nglFormControl type="password" placeholder="Password" [required]="password.errors?.required" formControlName="password">
       </ngl-form-element>
 
       <ngl-form-checkbox label="Remember me" class="slds-m-top--small">

@@ -12,33 +12,33 @@
     <ngl-notification *ngIf="errors && errors.length > 0" type="alert" severity="error" class="slds-theme--alert-texture">
       <h2 *ngFor="let error of errors">{{error}}</h2>
     </ngl-notification>
-    <ngl-notification *ngIf="success" type="alert" severity="success" class="slds-theme--alert-texture">
+    <ngl-notification *ngIf="success" timeout="2000" (nglNotificationClose)="success = null" type="alert" severity="success" class="slds-theme--alert-texture">
       <h2>The user has been registered</h2>
     </ngl-notification>
     <form [formGroup]="registerForm">
 
       <ngl-form-element label="Username">
-        <input nglFormControl type="text" placeholder="My input" [required]="userName.errors?.required" formControlName="userName">
+        <input nglFormControl type="text" placeholder="Username" [required]="userName.errors?.required" formControlName="userName">
       </ngl-form-element>
 
       <ngl-form-element label="Firstname" class="slds-m-top--small">
-        <input nglFormControl type="text" placeholder="My input" [required]="firstName.errors?.required" formControlName="firstName">
+        <input nglFormControl type="text" placeholder="Firstname" [required]="firstName.errors?.required" formControlName="firstName">
       </ngl-form-element>
 
       <ngl-form-element label="Lastname" class="slds-m-top--small">
-        <input nglFormControl type="text" placeholder="My input" [required]="lastName.errors?.required" formControlName="lastName">
+        <input nglFormControl type="text" placeholder="Lastname" [required]="lastName.errors?.required" formControlName="lastName">
       </ngl-form-element>
 
       <ngl-form-element label="Email" class="slds-m-top--small" [error]="email.errors?.email ? 'Email is not valid' : null">
-        <input nglFormControl type="text" placeholder="My input" [required]="email.errors?.required" formControlName="email">
+        <input nglFormControl type="text" placeholder="Email" [required]="email.errors?.required" formControlName="email">
       </ngl-form-element>
 
       <ngl-form-element label="Password" class="slds-m-top--small">
-        <input nglFormControl type="password" placeholder="My input" [required]="password.errors?.required" formControlName="password">
+        <input nglFormControl type="password" placeholder="Password" [required]="password.errors?.required" formControlName="password">
       </ngl-form-element>
 
       <ngl-form-element label="Confirm password" class="slds-m-top--small" [error]="registerForm.errors?.matchPassword ? 'Password doesn\'t match' : null">
-        <input nglFormControl type="Password" placeholder="My input" [required]="confirmPassword.errors?.required" formControlName="confirmPassword">
+        <input nglFormControl type="Password" placeholder="Confirm password" [required]="confirmPassword.errors?.required" formControlName="confirmPassword">
       </ngl-form-element>
 
       <fieldset ngl-form-group label="Type" [required]="userTypeId.errors?.required" class="slds-m-top--small">

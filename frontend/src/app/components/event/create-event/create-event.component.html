@@ -3,23 +3,26 @@
     <form [formGroup]="eventForm" class="slds-form slds-form_compound">
 
       <ngl-form-element label="Description">
-        <input nglFormControl type="text" placeholder="My input" [required]="description.errors?.required" formControlName="description">
+        <input nglFormControl type="text" placeholder="Description" [required]="description.errors?.required" formControlName="description">
       </ngl-form-element>
 
       <ngl-form-element label="Event type" class="slds-m-top--small">
         <select nglFormControl class="slds-select" formControlName="eventTypeId" [required]="eventTypeId.errors?.required">
+          <option [ngValue]="null">Select event type</option>
           <option *ngFor="let eventType of eventTypes" [ngValue]="eventType?.id">{{ eventType?.name }}</option>
         </select>
       </ngl-form-element>
 
       <ngl-form-element label="Class room" class="slds-m-top--small">
         <select nglFormControl class="slds-select" formControlName="classRoomId" [required]="classRoomId.errors?.required">
+          <option [ngValue]="null">Select room</option>
           <option *ngFor="let classRoom of classRooms" [ngValue]="classRoom?.id">{{ classRoom?.name }}</option>
         </select>
       </ngl-form-element>
 
       <ngl-form-element label="Course" class="slds-m-top--small">
         <select nglFormControl class="slds-select" formControlName="courseId" [required]="courseId.errors?.required">
+          <option [ngValue]="null">Select course</option>
           <option *ngFor="let course of courses" [ngValue]="course?.id">{{ course?.name }}</option>
         </select>
       </ngl-form-element>
@@ -50,12 +53,12 @@
           <div class="slds-form-element__row">
             <div class="slds-form-element slds-size_1-of-2">
               <label class="slds-form-element__label"><abbr *ngIf="startTime.errors?.required" class="slds-required" title="required">*</abbr>Start</label>
-              <input class="slds-input" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="startTime" />
+              <input class="slds-input" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="startTime" placeholder="Start time" />
               <owl-date-time [firstDayOfWeek]="1" #dt1></owl-date-time>
             </div>
             <div class="slds-form-element slds-size_1-of-2">
               <label class="slds-form-element__label"><abbr *ngIf="endTime.errors?.required" class="slds-required" title="required">*</abbr>End</label>
-              <input class="slds-input" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="endTime" />
+              <input class="slds-input" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" formControlName="endTime" placeholder="End time" />
               <owl-date-time [firstDayOfWeek]="1" #dt2></owl-date-time>
             </div>
           </div>
