@@ -87,6 +87,7 @@ namespace ClassroomScheduler.Controllers
 
         // POST: api/UserTypes
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> PostUserType([FromBody] UserTypeViewModel model)
         {
             if (!ModelState.IsValid)
