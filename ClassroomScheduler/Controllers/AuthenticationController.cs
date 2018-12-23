@@ -46,6 +46,7 @@ namespace ClassroomScheduler.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
         {
