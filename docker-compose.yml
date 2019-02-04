@@ -1,7 +1,8 @@
 version: "3"
 services:
     api:
-      build: ./ClassroomScheduler
+      #build: ./ClassroomScheduler
+      image: "acestojanoski/classroomscheduler:v1"
       ports:
         - "5000:80"
       depends_on:
